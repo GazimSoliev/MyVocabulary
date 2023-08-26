@@ -1,4 +1,4 @@
-package com.gazim.myvocabluary.ui.theme
+package com.gazim.myvocabluary.app.theme
 
 import androidx.compose.ui.graphics.Color
 

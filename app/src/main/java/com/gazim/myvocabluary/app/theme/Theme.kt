@@ -1,4 +1,4 @@
-package com.gazim.myvocabluary.ui.theme
+package com.gazim.myvocabluary.app.theme
 
 import android.app.Activity
 import android.os.Build

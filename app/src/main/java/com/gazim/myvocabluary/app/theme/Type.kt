@@ -1,4 +1,4 @@
-package com.gazim.myvocabluary.ui.theme
+package com.gazim.myvocabluary.app.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
