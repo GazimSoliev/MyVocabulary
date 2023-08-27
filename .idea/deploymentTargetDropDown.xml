@@ -2,6 +2,15 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
+      <entry key="ListOfWordsComponentPreviewWithTheme">
+        <State />
+      </entry>
+      <entry key="ListOfWordsPreviewWithTheme">
+        <State />
+      </entry>
+      <entry key="LookWordComponentPreviewWithTheme">
+        <State />
+      </entry>
       <entry key="app">
         <State />
       </entry>
