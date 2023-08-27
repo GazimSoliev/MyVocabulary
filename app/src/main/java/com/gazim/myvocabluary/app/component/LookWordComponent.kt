@@ -45,7 +45,7 @@ fun LookWordComponent(
     transcription: String = "",
     translation: String = "",
     linksOfPronunciation: List<String> = listOf(),
-    back: () -> Unit = {}
+    back: () -> Unit = {},
 ) {
     @Composable
     fun StyledWord(title: String, word: String) {
@@ -58,7 +58,7 @@ fun LookWordComponent(
                     modifier = Modifier
                         .padding(16.dp)
                         .fillMaxWidth(),
-                    style = MaterialTheme.typography.displaySmall
+                    style = MaterialTheme.typography.displaySmall,
                 )
             }
         }
@@ -74,7 +74,7 @@ fun LookWordComponent(
             Card(Modifier.animateContentSize()) {
                 Box(
                     modifier = Modifier.heightIn(min = 72.dp),
-                    contentAlignment = Alignment.Center
+                    contentAlignment = Alignment.Center,
                 ) {
                     Row(Modifier.padding(16.dp)) {
                         Text(
@@ -88,13 +88,15 @@ fun LookWordComponent(
                             style = MaterialTheme.typography.headlineSmall,
                             onTextLayout = {
                                 if (it.hasVisualOverflow && !showExpand) showExpand = true
-                            }
+                            },
                         )
-                        if (showExpand) IconButton(onClick = { expanded = !expanded }) {
-                            Icon(
-                                if (expanded) Icons.Default.ExpandLess else Icons.Default.ExpandMore,
-                                contentDescription = "Expand"
-                            )
+                        if (showExpand) {
+                            IconButton(onClick = { expanded = !expanded }) {
+                                Icon(
+                                    if (expanded) Icons.Default.ExpandLess else Icons.Default.ExpandMore,
+                                    contentDescription = "Expand",
+                                )
+                            }
                         }
                     }
                 }
@@ -109,20 +111,20 @@ fun LookWordComponent(
                         Icon(Icons.Default.ArrowBack, contentDescription = "Back")
                     }
                 })
-            }
+            },
         ) { paddingValue ->
             val contentPadding = with(paddingValue) {
                 PaddingValues(
                     top = 16.dp + calculateTopPadding(),
                     bottom = 16.dp + calculateBottomPadding(),
                     start = 16.dp,
-                    end = 16.dp
+                    end = 16.dp,
                 )
             }
             LazyColumn(
                 contentPadding = contentPadding,
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(32.dp)
+                verticalArrangement = Arrangement.spacedBy(32.dp),
             ) {
                 item {
                     Column(verticalArrangement = Arrangement.spacedBy(32.dp)) {
@@ -137,7 +139,6 @@ fun LookWordComponent(
             }
         }
     }
-
 }
 
 @Preview(showSystemUi = true)
@@ -147,8 +148,8 @@ fun LookWordComponentPreview() {
         "Hello",
         linksOfPronunciation = listOf(
             "https://www.google.com/search?q=install+cronie+ubunte&oq=install+cronie+ubunte&aqs=chrome..69i57.6889j0j1&sourceid=chrome&ie=UTF-8",
-            "link2"
-        )
+            "link2",
+        ),
     )
 }
 
@@ -165,4 +166,3 @@ fun LookWordComponentPreviewWithTheme() {
 fun LookWordComponentPreviewWithDarkTheme() {
     LookWordComponentPreviewWithTheme()
 }
-

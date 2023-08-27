@@ -15,4 +15,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "MyVocabluary"
 include(":app")
- 

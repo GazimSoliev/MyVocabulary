@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -41,7 +40,7 @@ fun AddWordComponent(
     changeTranslation: TextFieldChange = {},
     linksOfPronunciation: List<Pair<TextFieldValue, TextFieldChange>> = listOf(),
     addTextField: () -> Unit = {},
-    back: () -> Unit = {}
+    back: () -> Unit = {},
 ) {
     Surface {
         Scaffold(
@@ -51,20 +50,20 @@ fun AddWordComponent(
                         Icon(Icons.Default.ArrowBack, contentDescription = "Back")
                     }
                 })
-            }
+            },
         ) { paddingValue ->
             val contentPadding = with(paddingValue) {
                 PaddingValues(
                     top = 16.dp + calculateTopPadding(),
                     bottom = 16.dp + calculateBottomPadding(),
                     start = 16.dp,
-                    end = 16.dp
+                    end = 16.dp,
                 )
             }
             LazyColumn(
                 contentPadding = contentPadding,
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(16.dp)
+                verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {
                 item {
                     Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
@@ -72,17 +71,20 @@ fun AddWordComponent(
                             modifier = Modifier.fillMaxWidth(),
                             value = word,
                             onValueChange = changeWord,
-                            label = { Text("Word") })
+                            label = { Text("Word") },
+                        )
                         OutlinedTextField(
                             modifier = Modifier.fillMaxWidth(),
                             value = transcription,
                             onValueChange = changeTranscription,
-                            label = { Text("Transcription") })
+                            label = { Text("Transcription") },
+                        )
                         OutlinedTextField(
                             modifier = Modifier.fillMaxWidth(),
                             value = translation,
                             onValueChange = changeTranslation,
-                            label = { Text("Translation") })
+                            label = { Text("Translation") },
+                        )
                     }
                 }
                 itemsIndexed(linksOfPronunciation) { i, it ->
@@ -90,21 +92,20 @@ fun AddWordComponent(
                         modifier = Modifier.fillMaxWidth(),
                         value = it.first,
                         onValueChange = it.second,
-                        label = { Text("Link №${i + 1}") }
+                        label = { Text("Link №${i + 1}") },
                     )
                 }
                 item {
                     FilledTonalIconButton(onClick = addTextField) {
                         Icon(
                             Icons.Default.Add,
-                            contentDescription = "Add a new text field for link"
+                            contentDescription = "Add a new text field for link",
                         )
                     }
                 }
             }
         }
     }
-
 }
 
 @Preview(showSystemUi = true)
@@ -113,8 +114,8 @@ fun AddWordComponentPreview() {
     AddWordComponent(
         linksOfPronunciation = listOf(
             TextFieldValue() to {},
-            TextFieldValue() to {}
-        )
+            TextFieldValue() to {},
+        ),
     )
 }
 

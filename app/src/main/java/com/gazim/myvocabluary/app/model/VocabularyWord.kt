@@ -5,5 +5,5 @@ data class VocabularyWord(
     val word: String,
     val transcription: String,
     val translation: String,
-    val linksOfPronunciation: List<String>
+    val linksOfPronunciation: List<String>,
 )

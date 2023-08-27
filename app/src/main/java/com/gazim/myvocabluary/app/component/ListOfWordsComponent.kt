@@ -42,8 +42,11 @@ fun ListOfWordsComponent(words: List<VocabularyWord> = listOf(), addWord: () -> 
             },
             floatingActionButton = {
                 Column {
-                    FloatingActionButton(onClick = launchTest,
-                        containerColor = MaterialTheme.colorScheme.primary, contentColor = MaterialTheme.colorScheme.onPrimary) {
+                    FloatingActionButton(
+                        onClick = launchTest,
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        contentColor = MaterialTheme.colorScheme.onPrimary,
+                    ) {
                         Icon(Icons.Default.PlayArrow, contentDescription = "Test words")
                     }
                     Spacer(Modifier.height(16.dp))
@@ -51,14 +54,14 @@ fun ListOfWordsComponent(words: List<VocabularyWord> = listOf(), addWord: () -> 
                         Icon(Icons.Default.Add, contentDescription = "Add a word")
                     }
                 }
-            }
+            },
         ) { paddingValue ->
             val contentPadding = with(paddingValue) {
                 PaddingValues(
                     top = 16.dp + calculateTopPadding(),
                     bottom = 16.dp + calculateBottomPadding(),
                     start = 16.dp,
-                    end = 16.dp
+                    end = 16.dp,
                 )
             }
             LazyColumn(contentPadding = contentPadding, verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -75,9 +78,11 @@ fun ListOfWordsComponent(words: List<VocabularyWord> = listOf(), addWord: () -> 
 @Preview(showSystemUi = true)
 @Composable
 fun ListOfWordsComponentPreview() {
-    ListOfWordsComponent(words = List(20) {
-        VocabularyWord(word = "word", transcription = "transcription", translation = "translation", linksOfPronunciation = listOf("link"))
-    })
+    ListOfWordsComponent(
+        words = List(20) {
+            VocabularyWord(word = "word", transcription = "transcription", translation = "translation", linksOfPronunciation = listOf("link"))
+        },
+    )
 }
 
 @Preview(showSystemUi = true)
@@ -88,8 +93,9 @@ fun ListOfWordsComponentPreviewWithTheme() {
     }
 }
 
-@Preview(showSystemUi = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
+@Preview(
+    showSystemUi = true,
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
 )
 @Composable
 fun DarkListOfWordsComponentPreviewWithTheme() {
