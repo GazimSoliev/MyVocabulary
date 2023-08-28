@@ -74,7 +74,7 @@ dependencies {
 
     implementation(libs.decompose)
     implementation(libs.decompose.extensions.compose.jetpack)
-    
+
     implementation(libs.orbit.core)
     implementation(libs.orbit.viewmodel)
     implementation(libs.orbit.compose)

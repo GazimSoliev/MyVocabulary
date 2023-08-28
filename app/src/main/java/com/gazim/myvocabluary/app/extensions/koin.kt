@@ -42,5 +42,11 @@ fun <T : ViewModel> koinViewModel(
     scope: Scope = LocalKoinScope.current,
     parameters: ParametersDefinition? = null,
 ): T = resolveViewModel(
-    clazz, viewModelStoreOwner.viewModelStore, key, extras, qualifier, scope, parameters
+    clazz,
+    viewModelStoreOwner.viewModelStore,
+    key,
+    extras,
+    qualifier,
+    scope,
+    parameters,
 )

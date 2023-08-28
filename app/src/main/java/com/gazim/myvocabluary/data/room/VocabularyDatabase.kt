@@ -15,12 +15,16 @@ abstract class VocabularyDatabase : RoomDatabase() {
     companion object {
         private var instance: VocabularyDatabase? = null
         fun getInstance(applicationContext: Context) {
-            if (instance == null) synchronized(VocabularyDatabase::class) {
-                if (instance == null) instance = Room.databaseBuilder(
-                    applicationContext,
-                    VocabularyDatabase::class.java,
-                    "vocabulary-database"
-                ).build()
+            if (instance == null) {
+                synchronized(VocabularyDatabase::class) {
+                    if (instance == null) {
+                        instance = Room.databaseBuilder(
+                            applicationContext,
+                            VocabularyDatabase::class.java,
+                            "vocabulary-database",
+                        ).build()
+                    }
+                }
             }
         }
     }
