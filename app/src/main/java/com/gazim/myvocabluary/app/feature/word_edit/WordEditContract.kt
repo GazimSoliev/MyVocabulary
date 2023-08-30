@@ -9,12 +9,10 @@ data class WordEditState(
     val word: TextFieldValue = TextFieldValue(),
     val transcription: TextFieldValue = TextFieldValue(),
     val translation: TextFieldValue = TextFieldValue(),
-    val links: List<TextFieldValue> = listOf()
+    val links: List<TextFieldValue> = listOf(),
 ) : IState
 
-sealed interface WordEditSideEffect : ISideEffect {
-
-}
+sealed interface WordEditSideEffect : ISideEffect
 
 sealed interface WordEditAction : IAction {
     data class EditWord(val word: TextFieldValue) : WordEditAction

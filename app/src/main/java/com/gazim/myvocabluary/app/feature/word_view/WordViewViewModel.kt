@@ -12,7 +12,7 @@ import org.orbitmvi.orbit.viewmodel.container
 
 class WordViewViewModel(
     private val chosenWord: IChosenWord,
-    private val databaseRepository: IDatabaseRepository
+    private val databaseRepository: IDatabaseRepository,
 ) : BaseViewModel<WordViewState, WordViewSideEffect, WordViewAction>() {
     override fun handleAction(action: WordViewAction) {
         intent {
@@ -32,10 +32,9 @@ class WordViewViewModel(
                         word = it.word.word,
                         links = it.links.map { it.link },
                         transcription = it.word.transcription,
-                        translation = it.word.translation
+                        translation = it.word.translation,
                     )
                 }
             }
         }
-
 }

@@ -16,7 +16,6 @@ class WordAddScreen :
     override suspend fun handleSideEffect(sideEffect: WordAddSideEffect) {
         when (sideEffect) {
             is Back -> {
-
             }
         }
     }
@@ -34,8 +33,7 @@ class WordAddScreen :
             changeWord = { sendAction(EditWord(it)) },
             changeTranscription = { sendAction(EditTranscription(it)) },
             changeTranslation = { sendAction(EditTranslation(it)) },
-            changeLink = { i, v -> sendAction(EditLink(i, v)) }
+            changeLink = { i, v -> sendAction(EditLink(i, v)) },
         )
     }
-
 }

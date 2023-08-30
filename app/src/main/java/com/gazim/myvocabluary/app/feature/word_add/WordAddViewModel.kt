@@ -29,17 +29,21 @@ class WordAddViewModel(private val databaseRepository: DatabaseRepository) :
                 is EditTranslation -> reduce { state.copy(translation = action.translation) }
                 is EditWord -> reduce { state.copy(word = action.word) }
                 is Save -> {
-                    val word = databaseRepository.insertWord(Word(
-                        word = state.word.text,
-                        transcription = state.transcription.text,
-                        translation = state.translation.text,
-                    ))
-                    databaseRepository.insertLinks(state.links.map {
-                        Link(
-                            link = it.text,
-                            wordId = word.id
-                        )
-                    })
+                    val word = databaseRepository.insertWord(
+                        Word(
+                            word = state.word.text,
+                            transcription = state.transcription.text,
+                            translation = state.translation.text,
+                        ),
+                    )
+                    databaseRepository.insertLinks(
+                        state.links.map {
+                            Link(
+                                link = it.text,
+                                wordId = word.id,
+                            )
+                        },
+                    )
                     postSideEffect(Back)
                 }
                 is WordAddAction.Back -> postSideEffect(Back)

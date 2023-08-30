@@ -121,7 +121,7 @@ fun AddWordComponentPreview() {
     AddWordComponent(
         linksOfPronunciation = listOf(
             TextFieldValue(),
-            TextFieldValue()
+            TextFieldValue(),
         ),
     )
 }

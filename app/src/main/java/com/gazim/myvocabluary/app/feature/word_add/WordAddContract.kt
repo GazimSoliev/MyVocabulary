@@ -9,14 +9,14 @@ data class WordAddState(
     val word: TextFieldValue = TextFieldValue(),
     val transcription: TextFieldValue = TextFieldValue(),
     val translation: TextFieldValue = TextFieldValue(),
-    val links: List<TextFieldValue> = listOf()
-): IState
+    val links: List<TextFieldValue> = listOf(),
+) : IState
 
-sealed interface WordAddSideEffect: ISideEffect {
-    data object Back: WordAddSideEffect
+sealed interface WordAddSideEffect : ISideEffect {
+    data object Back : WordAddSideEffect
 }
 
-sealed interface WordAddAction: IAction {
+sealed interface WordAddAction : IAction {
     data class EditWord(val word: TextFieldValue) : WordAddAction
     data class EditTranscription(val transcription: TextFieldValue) : WordAddAction
     data class EditTranslation(val translation: TextFieldValue) : WordAddAction

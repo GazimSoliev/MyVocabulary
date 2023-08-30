@@ -25,5 +25,4 @@ class WorldListViewModel(private val databaseRepository: DatabaseRepository) : B
             reduce { WordListState(words = it) }
         }
     }
-
 }

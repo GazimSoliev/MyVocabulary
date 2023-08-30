@@ -9,11 +9,11 @@ import kotlinx.coroutines.launch
 import kotlin.reflect.KClass
 
 abstract class BaseScreen<
-        STATE : IState,
-        SIDE_EFFECT : ISideEffect,
-        ACTION : IAction,
-        VIEW_MODEL : BaseViewModel<STATE, SIDE_EFFECT, ACTION>,
-        >(private val clazz: KClass<VIEW_MODEL>) {
+    STATE : IState,
+    SIDE_EFFECT : ISideEffect,
+    ACTION : IAction,
+    VIEW_MODEL : BaseViewModel<STATE, SIDE_EFFECT, ACTION>,
+    >(private val clazz: KClass<VIEW_MODEL>) {
 
     private lateinit var viewModel: VIEW_MODEL
     private lateinit var _state: State<STATE>

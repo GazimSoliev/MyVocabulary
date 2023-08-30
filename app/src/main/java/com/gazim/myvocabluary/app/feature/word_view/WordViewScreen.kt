@@ -7,12 +7,11 @@ import com.gazim.myvocabluary.app.feature.word_view.WordViewSideEffect.Back
 
 class WordViewScreen :
     BaseScreen<WordViewState, WordViewSideEffect, WordViewAction, WordViewViewModel>(
-        WordViewViewModel::class
+        WordViewViewModel::class,
     ) {
     override suspend fun handleSideEffect(sideEffect: WordViewSideEffect) {
         when (sideEffect) {
             is Back -> {
-
             }
         }
     }
@@ -24,7 +23,7 @@ class WordViewScreen :
             transcription = state.transcription,
             translation = state.translation,
             linksOfPronunciation = state.links,
-            back = { sendAction(WordViewAction.Back) }
+            back = { sendAction(WordViewAction.Back) },
         )
     }
 }

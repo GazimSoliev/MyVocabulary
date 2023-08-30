@@ -32,15 +32,15 @@ class DatabaseRepository(private val vocabularyDAO: VocabularyDAO) : IDatabaseRe
             word = word.word,
             transcription = word.transcription,
             translation = word.translation,
-        )
+        ),
     ).let { word.copy(id = it.toInt()) }
 
     override suspend fun insertLink(link: Link) = vocabularyDAO.insertLink(
         LinkDB(
             id = link.id,
             link = link.link,
-            wordId = link.wordId
-        )
+            wordId = link.wordId,
+        ),
     ).let { link.copy(id = it.toInt()) }
 
     override suspend fun getWordWithLinks(wordId: Int): WordWithLinks =
@@ -50,24 +50,26 @@ class DatabaseRepository(private val vocabularyDAO: VocabularyDAO) : IDatabaseRe
                     id = word.id,
                     word = word.word,
                     transcription = word.transcription,
-                    translation = word.translation
+                    translation = word.translation,
                 ),
                 links = links.map {
                     Link(
                         id = it.id,
                         link = it.link,
-                        wordId = it.wordId
+                        wordId = it.wordId,
                     )
-                }
+                },
             )
         }
 
     override suspend fun insertLinks(links: List<Link>): List<Link> =
-        vocabularyDAO.insertLinks(links.map {
-            LinkDB(
-                id = it.id,
-                link = it.link,
-                wordId = it.wordId
-            )
-        }).zip(links) { i, l -> l.copy(id = i.toInt()) }
+        vocabularyDAO.insertLinks(
+            links.map {
+                LinkDB(
+                    id = it.id,
+                    link = it.link,
+                    wordId = it.wordId,
+                )
+            },
+        ).zip(links) { i, l -> l.copy(id = i.toInt()) }
 }
