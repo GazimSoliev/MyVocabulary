@@ -10,20 +10,22 @@ import com.gazim.myvocabluary.data.room.model.WordWithLinksDB
 
 @Dao
 interface VocabularyDAO {
-
-    @Transaction
-    suspend fun insertWordWithLinks(wordWithLinks: WordWithLinksDB) {
-        insertWord(wordWithLinks.word)
-        insertLinks(wordWithLinks.links)
-    }
+    @Insert
+    suspend fun insertWord(word: WordDB): Long
 
     @Insert
-    suspend fun insertWord(word: WordDB)
+    suspend fun insertLink(link: LinkDB): Long
 
     @Insert
-    suspend fun insertLinks(link: List<LinkDB>)
+    suspend fun insertLinks(links: List<LinkDB>): List<Long>
 
     @Transaction
-    @Query("select * from WordDB")
-    suspend fun getWords(): List<WordWithLinksDB>
+    @Query("select * from WordDB w where w.id = :wordId")
+    suspend fun getWordsWithLink(wordId: Int): WordWithLinksDB
+
+    @Query("select * from WordDB w")
+    suspend fun getWords(): List<WordDB>
+
+    @Query("select * from LinkDB l where l.wordId = :wordId")
+    suspend fun getLinks(wordId: Int): List<LinkDB>
 }

@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Save
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledTonalIconButton
 import androidx.compose.material3.Icon
@@ -38,9 +39,11 @@ fun AddWordComponent(
     changeWord: TextFieldChange = {},
     changeTranscription: TextFieldChange = {},
     changeTranslation: TextFieldChange = {},
-    linksOfPronunciation: List<Pair<TextFieldValue, TextFieldChange>> = listOf(),
+    linksOfPronunciation: List<TextFieldValue> = listOf(),
+    changeLink: (Int, TextFieldValue) -> Unit = { _, _ -> },
     addTextField: () -> Unit = {},
     back: () -> Unit = {},
+    save: () -> Unit = {},
 ) {
     Surface {
         Scaffold(
@@ -48,6 +51,10 @@ fun AddWordComponent(
                 TopAppBar(title = { Text("Add a word") }, navigationIcon = {
                     IconButton(onClick = back) {
                         Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+                    }
+                }, actions = {
+                    IconButton(onClick = save) {
+                        Icon(Icons.Default.Save, contentDescription = "Save")
                     }
                 })
             },
@@ -87,11 +94,11 @@ fun AddWordComponent(
                         )
                     }
                 }
-                itemsIndexed(linksOfPronunciation) { i, it ->
+                itemsIndexed(linksOfPronunciation) { i, v ->
                     OutlinedTextField(
                         modifier = Modifier.fillMaxWidth(),
-                        value = it.first,
-                        onValueChange = it.second,
+                        value = v,
+                        onValueChange = { changeLink(i, it) },
                         label = { Text("Link №${i + 1}") },
                     )
                 }
@@ -113,8 +120,8 @@ fun AddWordComponent(
 fun AddWordComponentPreview() {
     AddWordComponent(
         linksOfPronunciation = listOf(
-            TextFieldValue() to {},
-            TextFieldValue() to {},
+            TextFieldValue(),
+            TextFieldValue()
         ),
     )
 }

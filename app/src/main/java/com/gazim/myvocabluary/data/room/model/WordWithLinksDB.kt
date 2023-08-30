@@ -4,7 +4,7 @@ import androidx.room.Embedded
 import androidx.room.Relation
 
 data class WordWithLinksDB(
-    @Embedded val word: WordDB,
+    @Embedded val word: WordDB = WordDB(),
     @Relation(parentColumn = "id", entityColumn = "wordId")
-    val links: List<LinkDB>,
+    val links: List<LinkDB> = listOf(),
 )

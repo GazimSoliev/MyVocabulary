@@ -5,9 +5,9 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class WordDB(
+    val word: String = "",
+    val transcription: String = "",
+    val translation: String = "",
     @PrimaryKey(autoGenerate = true)
-    val id: Int,
-    val word: String,
-    val transcription: String,
-    val translation: String,
+    val id: Int = 0,
 )
