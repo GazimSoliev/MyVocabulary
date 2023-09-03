@@ -1,46 +1,26 @@
 package com.gazim.myvocabluary.app
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.platform.LocalLifecycleOwner
+import com.bumble.appyx.navigation.integration.NodeComponentActivity
+import com.bumble.appyx.navigation.integration.NodeHost
+import com.bumble.appyx.navigation.platform.AndroidLifecycle
+import com.gazim.myvocabluary.app.navigation.Navigation
 import com.gazim.myvocabluary.app.theme.MyVocabluaryTheme
 
-class MainActivity : ComponentActivity() {
+class MainActivity : NodeComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             MyVocabluaryTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background,
+                NodeHost(
+                    lifecycle = AndroidLifecycle(LocalLifecycleOwner.current.lifecycle),
+                    integrationPoint = appyxV2IntegrationPoint
                 ) {
-                    Greeting("Android")
+                    Navigation(it)
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier,
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    MyVocabluaryTheme {
-        Greeting("Android")
     }
 }

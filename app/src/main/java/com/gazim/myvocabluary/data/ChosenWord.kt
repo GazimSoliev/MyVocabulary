@@ -1,12 +1,12 @@
 package com.gazim.myvocabluary.data
 
-import com.gazim.myvocabluary.app.model.Word
-
 class ChosenWord : IChosenWord {
-    var word: Word? = null
-    override suspend fun setWord(word: Word) {
-        this.word = word
+    var wordId: Int = 0
+    override suspend fun setWord(wordId: Int) {
+        this.wordId = wordId
     }
 
-    override suspend fun getWord(): Word = word!!
+    override suspend fun getWordId(): Int {
+        return wordId
+    }
 }

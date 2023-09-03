@@ -14,7 +14,7 @@ abstract class VocabularyDatabase : RoomDatabase() {
 
     companion object {
         private var instance: VocabularyDatabase? = null
-        fun getInstance(applicationContext: Context) {
+        fun getInstance(applicationContext: Context): VocabularyDatabase {
             if (instance == null) {
                 synchronized(VocabularyDatabase::class) {
                     if (instance == null) {
@@ -26,6 +26,7 @@ abstract class VocabularyDatabase : RoomDatabase() {
                     }
                 }
             }
+            return instance!!
         }
     }
 }

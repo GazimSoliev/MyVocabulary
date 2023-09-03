@@ -1,6 +1,7 @@
 package com.gazim.myvocabluary.app.component
 
 import android.content.res.Configuration
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -32,7 +33,7 @@ import com.gazim.myvocabluary.app.theme.MyVocabluaryTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ListOfWordsComponent(words: List<Word> = listOf(), addWord: () -> Unit = {}, launchTest: () -> Unit = {}) {
+fun ListOfWordsComponent(words: List<Word> = listOf(), addWord: () -> Unit = {}, launchTest: () -> Unit = {}, onWordClick: (Int) -> Unit = {}) {
     Surface {
         Scaffold(
             topBar = {
@@ -66,7 +67,7 @@ fun ListOfWordsComponent(words: List<Word> = listOf(), addWord: () -> Unit = {},
             }
             LazyColumn(contentPadding = contentPadding, verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 items(words) {
-                    Card(Modifier.fillMaxWidth()) {
+                    Card(Modifier.fillMaxWidth().clickable(onClick = { onWordClick(it.id) })) {
                         Text("${it.word} - [${it.transcription}] - ${it.translation}", modifier = Modifier.padding(16.dp), maxLines = 1, softWrap = false, overflow = TextOverflow.Ellipsis)
                     }
                 }

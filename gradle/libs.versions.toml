@@ -1,5 +1,6 @@
 [versions]
 agp = "8.3.0-alpha01"
+appyx-navigation-android = "2.0.0-alpha04"
 decompose = "2.0.1"
 extensions-compose-jetpack = "2.0.1"
 koin-android = "3.4.3"
@@ -22,6 +23,8 @@ androidx-material-icons-extended = { module = "androidx.compose.material:materia
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+appyx-navigation-android = { module = "com.bumble.appyx:appyx-navigation-android", version.ref = "appyx-navigation-android" }
+backstack-android = { module = "com.bumble.appyx:backstack-android", version.ref = "appyx-navigation-android" }
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
 decompose = { module = "com.arkivanov.decompose:decompose", version.ref = "decompose" }
 decompose-extensions-compose-jetpack = { module = "com.arkivanov.decompose:extensions-compose-jetpack", version.ref = "extensions-compose-jetpack" }

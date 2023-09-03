@@ -46,7 +46,10 @@ class WordAddViewModel(private val databaseRepository: DatabaseRepository) :
                     )
                     postSideEffect(Back)
                 }
-                is WordAddAction.Back -> postSideEffect(Back)
+                is WordAddAction.Back -> {
+                    postSideEffect(Back)
+                    this@WordAddViewModel.onCleared()
+                }
             }
         }
     }

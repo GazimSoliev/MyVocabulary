@@ -1,6 +1,7 @@
 package com.gazim.myvocabluary.app.feature.word_add
 
 import androidx.compose.runtime.Composable
+import com.bumble.appyx.navigation.modality.BuildContext
 import com.gazim.myvocabluary.app.common.BaseScreen
 import com.gazim.myvocabluary.app.component.AddWordComponent
 import com.gazim.myvocabluary.app.feature.word_add.WordAddAction.AddLink
@@ -11,12 +12,16 @@ import com.gazim.myvocabluary.app.feature.word_add.WordAddAction.EditWord
 import com.gazim.myvocabluary.app.feature.word_add.WordAddAction.Save
 import com.gazim.myvocabluary.app.feature.word_add.WordAddSideEffect.Back
 
-class WordAddScreen :
-    BaseScreen<WordAddState, WordAddSideEffect, WordAddAction, WordAddViewModel>(WordAddViewModel::class) {
+class WordAddScreen(
+    buildContext: BuildContext, private val backAction: () -> Unit = {}
+) : BaseScreen<WordAddState, WordAddSideEffect, WordAddAction, WordAddViewModel>(
+        buildContext,
+        WordAddViewModel::class
+    ) {
+
     override suspend fun handleSideEffect(sideEffect: WordAddSideEffect) {
         when (sideEffect) {
-            is Back -> {
-            }
+            is Back -> backAction()
         }
     }
 

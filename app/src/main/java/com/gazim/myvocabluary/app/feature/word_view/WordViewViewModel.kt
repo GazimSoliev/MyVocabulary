@@ -25,7 +25,7 @@ class WordViewViewModel(
     override val container: Container<WordViewState, WordViewSideEffect> =
         container(WordViewState()) {
             runCatching {
-                databaseRepository.getWordWithLinks(chosenWord.getWord().id)
+                databaseRepository.getWordWithLinks(chosenWord.getWordId())
             }.onSuccess {
                 reduce {
                     state.copy(

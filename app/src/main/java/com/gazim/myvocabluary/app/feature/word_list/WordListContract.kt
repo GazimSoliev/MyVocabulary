@@ -11,7 +11,10 @@ data class WordListState(
 
 sealed interface WordListSideEffect : ISideEffect {
     data object AddWord : WordListSideEffect
+    data object ViewWord: WordListSideEffect
 }
 sealed interface WordListAction : IAction {
     data object AddWord : WordListAction
+    data class ViewWord(val wordId: Int) : WordListAction
+    data object RefreshList : WordListAction
 }
