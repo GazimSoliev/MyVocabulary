@@ -44,7 +44,7 @@ class WordTestViewModel(private val testWordRepository: ITestWordRepository) :
                 WordTestState(
                     word = it.word,
                     transcription = it.transcription,
-                    translation = it.translation
+                    translation = it.translation,
                 )
             }
         }.onFailure(Throwable::printStackTrace)

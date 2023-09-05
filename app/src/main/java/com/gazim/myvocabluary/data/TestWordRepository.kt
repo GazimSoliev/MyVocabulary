@@ -2,7 +2,7 @@ package com.gazim.myvocabluary.data
 
 import com.gazim.myvocabluary.app.model.Word
 
-class TestWordRepository(private val databaseRepository: IDatabaseRepository): ITestWordRepository {
+class TestWordRepository(private val databaseRepository: IDatabaseRepository) : ITestWordRepository {
     private var _wordIds: Iterator<Int>? = null
     private val wordIds: Iterator<Int> get() = requireNotNull(_wordIds) { "ITestWordRepository is not started" }
     override suspend fun start() {
@@ -10,7 +10,6 @@ class TestWordRepository(private val databaseRepository: IDatabaseRepository): I
     }
 
     override suspend fun hasNext(): Boolean = wordIds.hasNext()
-
 
     override suspend fun nextWord(): Word = databaseRepository.getWordById(wordIds.next())
 

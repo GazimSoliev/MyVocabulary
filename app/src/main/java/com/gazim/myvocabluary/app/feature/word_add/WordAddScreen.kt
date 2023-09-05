@@ -13,11 +13,12 @@ import com.gazim.myvocabluary.app.feature.word_add.WordAddAction.Save
 import com.gazim.myvocabluary.app.feature.word_add.WordAddSideEffect.Back
 
 class WordAddScreen(
-    buildContext: BuildContext, private val backAction: () -> Unit = {}
+    buildContext: BuildContext,
+    private val backAction: () -> Unit = {},
 ) : BaseScreen<WordAddState, WordAddSideEffect, WordAddAction, WordAddViewModel>(
-        buildContext,
-        WordAddViewModel::class
-    ) {
+    buildContext,
+    WordAddViewModel::class,
+) {
 
     override suspend fun handleSideEffect(sideEffect: WordAddSideEffect) {
         when (sideEffect) {

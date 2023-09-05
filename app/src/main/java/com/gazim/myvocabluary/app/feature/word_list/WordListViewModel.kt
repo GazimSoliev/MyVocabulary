@@ -18,7 +18,7 @@ private typealias IntentScope = SimpleSyntax<WordListState, WordListSideEffect>
 
 class WordListViewModel(
     private val databaseRepository: DatabaseRepository,
-    private val chosenWord: IChosenWord
+    private val chosenWord: IChosenWord,
 ) : BaseViewModel<WordListState, WordListSideEffect, WordListAction>() {
     override fun handleAction(action: WordListAction) {
         intent {

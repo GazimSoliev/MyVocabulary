@@ -15,27 +15,30 @@ import org.koin.java.KoinJavaComponent.inject
 import kotlin.reflect.KClass
 
 abstract class BaseScreen<
-        STATE : IState,
-        SIDE_EFFECT : ISideEffect,
-        ACTION : IAction,
-        VIEW_MODEL : BaseViewModel<STATE, SIDE_EFFECT, ACTION>
-        >(
-    buildContext: BuildContext, clazz: KClass<VIEW_MODEL>
+    STATE : IState,
+    SIDE_EFFECT : ISideEffect,
+    ACTION : IAction,
+    VIEW_MODEL : BaseViewModel<STATE, SIDE_EFFECT, ACTION>,
+    >(
+    buildContext: BuildContext,
+    clazz: KClass<VIEW_MODEL>,
 ) : Node(buildContext = buildContext) {
 
     init {
         @Suppress("LeakingThis")
-        lifecycle.addObserver(observer = object : DefaultPlatformLifecycleObserver {
-            override fun onCreate() = this@BaseScreen.onCreate()
-            override fun onPause() = this@BaseScreen.onPause()
-            override fun onResume() = this@BaseScreen.onResume()
-            override fun onStart() = this@BaseScreen.onStart()
-            override fun onStop() = this@BaseScreen.onStop()
-            override fun onDestroy() {
-                this@BaseScreen.onDestroy()
-                viewModel.viewModelScope.cancel()
-            }
-        })
+        lifecycle.addObserver(
+            observer = object : DefaultPlatformLifecycleObserver {
+                override fun onCreate() = this@BaseScreen.onCreate()
+                override fun onPause() = this@BaseScreen.onPause()
+                override fun onResume() = this@BaseScreen.onResume()
+                override fun onStart() = this@BaseScreen.onStart()
+                override fun onStop() = this@BaseScreen.onStop()
+                override fun onDestroy() {
+                    this@BaseScreen.onDestroy()
+                    viewModel.viewModelScope.cancel()
+                }
+            },
+        )
     }
 
     private val viewModel: VIEW_MODEL by inject(clazz = clazz.java)

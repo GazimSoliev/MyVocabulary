@@ -53,25 +53,25 @@ fun TestWordsComponent(
         buttonTitle: String,
         hiddenWord: String,
         hidden: Boolean,
-        onClick: () -> Unit = {}
+        onClick: () -> Unit = {},
     ) {
         Box(
             Modifier
                 .width(IntrinsicSize.Max)
                 .height(IntrinsicSize.Max),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
         ) {
             Text(
                 hiddenWord,
                 style = MaterialTheme.typography.displaySmall,
-                modifier = Modifier.clickable(onClick = onClick)
+                modifier = Modifier.clickable(onClick = onClick),
             )
             AnimatedVisibility(hidden) {
                 Box(
                     modifier = Modifier
                         .background(MaterialTheme.colorScheme.background)
                         .fillMaxSize(),
-                    contentAlignment = Alignment.Center
+                    contentAlignment = Alignment.Center,
                 ) {
                     TextButton(onClick = onClick) {
                         Icon(Icons.Default.Visibility, contentDescription = "Show word")
@@ -102,7 +102,7 @@ fun TestWordsComponent(
             }
             Column(
                 modifier = Modifier.padding(contentPadding),
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(word, style = MaterialTheme.typography.displayLarge)
                 Spacer(Modifier.height(32.dp))

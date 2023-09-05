@@ -17,16 +17,17 @@ import com.gazim.myvocabluary.app.feature.word_test.WordTestScreen
 import com.gazim.myvocabluary.app.feature.word_view.WordViewScreen
 
 class Navigation(
-    buildContext: BuildContext, private val backStack: BackStack<NavTarget> = BackStack(
+    buildContext: BuildContext,
+    private val backStack: BackStack<NavTarget> = BackStack(
         model = BackStackModel(
             initialTarget = NavTarget.WordList,
             savedStateMap = buildContext.savedStateMap,
         ),
-        motionController = { BackStackFader(it) }
-    )
+        motionController = { BackStackFader(it) },
+    ),
 ) : ParentNode<NavTarget>(
     appyxComponent = backStack,
-    buildContext = buildContext
+    buildContext = buildContext,
 ) {
     override fun resolve(interactionTarget: NavTarget, buildContext: BuildContext): Node =
         when (interactionTarget) {
@@ -34,22 +35,22 @@ class Navigation(
                 buildContext = buildContext,
                 addWordAction = { backStack.push(NavTarget.WordAdd) },
                 viewWordAction = { backStack.push(NavTarget.WordView) },
-                testWordAction = { backStack.push(NavTarget.WordTest) }
+                testWordAction = { backStack.push(NavTarget.WordTest) },
             )
 
             NavTarget.WordAdd -> WordAddScreen(
                 buildContext = buildContext,
-                backAction = { backStack.pop() }
+                backAction = { backStack.pop() },
             )
 
             NavTarget.WordView -> WordViewScreen(
                 buildContext = buildContext,
-                backAction = { backStack.pop() }
+                backAction = { backStack.pop() },
             )
 
             NavTarget.WordTest -> WordTestScreen(
                 buildContext = buildContext,
-                backAction = { backStack.pop() }
+                backAction = { backStack.pop() },
             )
         }
 

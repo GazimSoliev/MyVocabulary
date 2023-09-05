@@ -16,7 +16,7 @@ class MainActivity : NodeComponentActivity() {
             MyVocabluaryTheme {
                 NodeHost(
                     lifecycle = AndroidLifecycle(LocalLifecycleOwner.current.lifecycle),
-                    integrationPoint = appyxV2IntegrationPoint
+                    integrationPoint = appyxV2IntegrationPoint,
                 ) {
                     Navigation(it)
                 }
