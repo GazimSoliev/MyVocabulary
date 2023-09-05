@@ -2,7 +2,9 @@ package com.gazim.myvocabluary.app.feature.word_list
 
 import com.gazim.myvocabluary.app.common.BaseViewModel
 import com.gazim.myvocabluary.app.feature.word_list.WordListAction.AddWord
-import com.gazim.myvocabluary.app.feature.word_list.WordListSideEffect.ViewWord
+import com.gazim.myvocabluary.app.feature.word_list.WordListAction.RefreshList
+import com.gazim.myvocabluary.app.feature.word_list.WordListAction.TestWord
+import com.gazim.myvocabluary.app.feature.word_list.WordListAction.ViewWord
 import com.gazim.myvocabluary.data.DatabaseRepository
 import com.gazim.myvocabluary.data.IChosenWord
 import org.orbitmvi.orbit.Container
@@ -22,14 +24,12 @@ class WordListViewModel(
         intent {
             when (action) {
                 is AddWord -> postSideEffect(WordListSideEffect.AddWord)
-                is WordListAction.ViewWord -> {
+                is ViewWord -> {
                     chosenWord.setWord(action.wordId)
-                    postSideEffect(ViewWord)
+                    postSideEffect(WordListSideEffect.ViewWord)
                 }
-
-                is WordListAction.RefreshList -> {
-                    loadWords()
-                }
+                is RefreshList -> loadWords()
+                is TestWord -> postSideEffect(WordListSideEffect.TestWord)
             }
         }
     }

@@ -20,12 +20,18 @@ interface VocabularyDAO {
     suspend fun insertLinks(links: List<LinkDB>): List<Long>
 
     @Transaction
-    @Query("select * from WordDB w where w.id = :wordId")
+    @Query("select * from WordDB where id = :wordId")
     suspend fun getWordsWithLink(wordId: Int): WordWithLinksDB
 
-    @Query("select * from WordDB w")
+    @Query("select * from WordDB")
     suspend fun getWords(): List<WordDB>
 
-    @Query("select * from LinkDB l where l.wordId = :wordId")
+    @Query("select * from LinkDB where wordId = :wordId")
     suspend fun getLinks(wordId: Int): List<LinkDB>
+
+    @Query("select id from WordDB")
+    suspend fun getWordIds(): List<Int>
+
+    @Query("select * from WordDB where id = :id")
+    suspend fun getWordById(id: Int): WordDB
 }

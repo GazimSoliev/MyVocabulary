@@ -13,6 +13,7 @@ import com.bumble.appyx.navigation.node.Node
 import com.bumble.appyx.navigation.node.ParentNode
 import com.gazim.myvocabluary.app.feature.word_add.WordAddScreen
 import com.gazim.myvocabluary.app.feature.word_list.WordListScreen
+import com.gazim.myvocabluary.app.feature.word_test.WordTestScreen
 import com.gazim.myvocabluary.app.feature.word_view.WordViewScreen
 
 class Navigation(
@@ -27,23 +28,30 @@ class Navigation(
     appyxComponent = backStack,
     buildContext = buildContext
 ) {
-    override fun resolve(interactionTarget: NavTarget, buildContext: BuildContext): Node {
-        println("Test")
-        return when (interactionTarget) {
+    override fun resolve(interactionTarget: NavTarget, buildContext: BuildContext): Node =
+        when (interactionTarget) {
             NavTarget.WordList -> WordListScreen(
                 buildContext = buildContext,
                 addWordAction = { backStack.push(NavTarget.WordAdd) },
-                viewWordAction = { backStack.push(NavTarget.WordView) })
+                viewWordAction = { backStack.push(NavTarget.WordView) },
+                testWordAction = { backStack.push(NavTarget.WordTest) }
+            )
 
             NavTarget.WordAdd -> WordAddScreen(
                 buildContext = buildContext,
-                backAction = { backStack.pop() })
+                backAction = { backStack.pop() }
+            )
 
             NavTarget.WordView -> WordViewScreen(
                 buildContext = buildContext,
-                backAction = { backStack.pop() })
+                backAction = { backStack.pop() }
+            )
+
+            NavTarget.WordTest -> WordTestScreen(
+                buildContext = buildContext,
+                backAction = { backStack.pop() }
+            )
         }
-    }
 
     @Composable
     override fun View(modifier: Modifier) {

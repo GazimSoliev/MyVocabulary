@@ -11,4 +11,6 @@ interface IDatabaseRepository {
     suspend fun insertLink(link: Link): Link
     suspend fun getWordWithLinks(wordId: Int): WordWithLinks
     suspend fun insertLinks(links: List<Link>): List<Link>
+    suspend fun getRandomWordIds(): List<Int>
+    suspend fun getWordById(wordId: Int): Word
 }
