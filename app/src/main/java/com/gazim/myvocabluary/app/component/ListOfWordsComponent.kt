@@ -68,7 +68,10 @@ fun ListOfWordsComponent(words: List<Word> = listOf(), addWord: () -> Unit = {},
             LazyColumn(contentPadding = contentPadding, verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 items(words) {
                     Card(Modifier.fillMaxWidth().clickable(onClick = { onWordClick(it.id) })) {
-                        Text("${it.word} - [${it.transcription}] - ${it.translation}", modifier = Modifier.padding(16.dp), maxLines = 1, softWrap = false, overflow = TextOverflow.Ellipsis)
+                        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                            Text("${it.word} - [${it.transcription}] - ${it.translation}", maxLines = 1, softWrap = false, overflow = TextOverflow.Ellipsis)
+                            Text("${it.createdAt}")
+                        }
                     }
                 }
             }

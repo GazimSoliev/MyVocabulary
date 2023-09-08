@@ -25,14 +25,22 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
             )
         }
+        debug {
+            applicationIdSuffix = ".debug"
+            versionNameSuffix = " debug"
+            isDebuggable = true
+        }
     }
     compileOptions {
+        // Java 8 support
+        isCoreLibraryDesugaringEnabled = true
+
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
@@ -43,7 +51,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.2"
+        kotlinCompilerExtensionVersion = "1.5.3"
     }
     packaging {
         resources {
@@ -87,6 +95,13 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
 
+    // Java 8 support
+    coreLibraryDesugaring(libs.desugar.jdk.libs)
+
+    // Appyx Navigation
     implementation(libs.appyx.navigation.android)
     implementation(libs.backstack.android)
+
+    // Kotlin DateTime
+    implementation(libs.kotlinx.datetime)
 }

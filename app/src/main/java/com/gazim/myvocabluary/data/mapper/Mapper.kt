@@ -12,6 +12,7 @@ fun WordDB.toWord() = Word(
     word = word,
     transcription = transcription,
     translation = translation,
+    createdAt = createdAt
 )
 
 fun LinkDB.toLink() = Link(
@@ -25,6 +26,7 @@ fun Word.toWordDB() = WordDB(
     word = word,
     transcription = transcription,
     translation = translation,
+    createdAt = createdAt
 )
 
 fun Link.toLinkDB() = LinkDB(
