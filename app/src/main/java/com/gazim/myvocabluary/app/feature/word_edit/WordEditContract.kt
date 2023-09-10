@@ -9,7 +9,7 @@ data class WordEditState(
     val word: TextFieldValue = TextFieldValue(),
     val transcription: TextFieldValue = TextFieldValue(),
     val translation: TextFieldValue = TextFieldValue(),
-    val links: List<TextFieldValue> = listOf(),
+    val links: List<TextFieldValue> = emptyList(),
 ) : IState
 
 sealed interface WordEditSideEffect : ISideEffect

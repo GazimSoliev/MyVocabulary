@@ -8,7 +8,7 @@ data class WordViewState(
     val word: String = "",
     val transcription: String = "",
     val translation: String = "",
-    val links: List<String> = listOf(),
+    val links: List<String> = emptyList(),
 ) : IState
 
 sealed interface WordViewSideEffect : ISideEffect {

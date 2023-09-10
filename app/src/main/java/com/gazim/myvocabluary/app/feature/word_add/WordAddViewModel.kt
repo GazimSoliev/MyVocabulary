@@ -9,8 +9,8 @@ import com.gazim.myvocabluary.app.feature.word_add.WordAddAction.EditTranslation
 import com.gazim.myvocabluary.app.feature.word_add.WordAddAction.EditWord
 import com.gazim.myvocabluary.app.feature.word_add.WordAddAction.Save
 import com.gazim.myvocabluary.app.feature.word_add.WordAddSideEffect.Back
-import com.gazim.myvocabluary.app.model.Link
-import com.gazim.myvocabluary.app.model.Word
+import com.gazim.myvocabluary.app.model.LinkID
+import com.gazim.myvocabluary.app.model.WordID
 import com.gazim.myvocabluary.data.DatabaseRepository
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -30,7 +30,7 @@ class WordAddViewModel(private val databaseRepository: DatabaseRepository) :
                 is EditWord -> reduce { state.copy(word = action.word) }
                 is Save -> {
                     val word = databaseRepository.insertWord(
-                        Word(
+                        WordID(
                             word = state.word.text,
                             transcription = state.transcription.text,
                             translation = state.translation.text,
@@ -38,7 +38,7 @@ class WordAddViewModel(private val databaseRepository: DatabaseRepository) :
                     )
                     databaseRepository.insertLinks(
                         state.links.map {
-                            Link(
+                            LinkID(
                                 link = it.text,
                                 wordId = word.id,
                             )

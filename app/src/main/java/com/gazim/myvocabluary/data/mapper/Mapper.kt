@@ -1,13 +1,13 @@
 package com.gazim.myvocabluary.data.mapper
 
-import com.gazim.myvocabluary.app.model.Link
-import com.gazim.myvocabluary.app.model.Word
+import com.gazim.myvocabluary.app.model.LinkID
+import com.gazim.myvocabluary.app.model.WordID
 import com.gazim.myvocabluary.app.model.WordWithLinks
 import com.gazim.myvocabluary.data.room.model.LinkDB
 import com.gazim.myvocabluary.data.room.model.WordDB
 import com.gazim.myvocabluary.data.room.model.WordWithLinksDB
 
-fun WordDB.toWord() = Word(
+fun WordDB.toWord() = WordID(
     id = id,
     word = word,
     transcription = transcription,
@@ -15,13 +15,13 @@ fun WordDB.toWord() = Word(
     createdAt = createdAt
 )
 
-fun LinkDB.toLink() = Link(
+fun LinkDB.toLink() = LinkID(
     id = id,
     link = link,
     wordId = wordId,
 )
 
-fun Word.toWordDB() = WordDB(
+fun WordID.toWordDB() = WordDB(
     id = id,
     word = word,
     transcription = transcription,
@@ -29,7 +29,7 @@ fun Word.toWordDB() = WordDB(
     createdAt = createdAt
 )
 
-fun Link.toLinkDB() = LinkDB(
+fun LinkID.toLinkDB() = LinkDB(
     id = id,
     link = link,
     wordId = wordId,

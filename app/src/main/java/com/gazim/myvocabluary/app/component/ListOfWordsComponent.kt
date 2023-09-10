@@ -28,12 +28,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.gazim.myvocabluary.app.model.Word
+import com.gazim.myvocabluary.app.model.WordID
 import com.gazim.myvocabluary.app.theme.MyVocabluaryTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ListOfWordsComponent(words: List<Word> = listOf(), addWord: () -> Unit = {}, launchTest: () -> Unit = {}, onWordClick: (Int) -> Unit = {}) {
+fun ListOfWordsComponent(words: List<WordID> = emptyList(), addWord: () -> Unit = {}, launchTest: () -> Unit = {}, onWordClick: (Int) -> Unit = {}) {
     Surface {
         Scaffold(
             topBar = {
@@ -84,7 +84,7 @@ fun ListOfWordsComponent(words: List<Word> = listOf(), addWord: () -> Unit = {},
 fun ListOfWordsComponentPreview() {
     ListOfWordsComponent(
         words = List(20) {
-            Word(word = "word", transcription = "transcription", translation = "translation")
+            WordID(word = "word", transcription = "transcription", translation = "translation")
         },
     )
 }

@@ -3,10 +3,10 @@ package com.gazim.myvocabluary.app.feature.word_list
 import com.gazim.myvocabluary.app.common.IAction
 import com.gazim.myvocabluary.app.common.ISideEffect
 import com.gazim.myvocabluary.app.common.IState
-import com.gazim.myvocabluary.app.model.Word
+import com.gazim.myvocabluary.app.model.WordID
 
 data class WordListState(
-    val words: List<Word> = listOf(),
+    val words: List<WordID> = emptyList(),
 ) : IState
 
 sealed interface WordListSideEffect : ISideEffect {

@@ -1,6 +1,6 @@
 package com.gazim.myvocabluary.app.model
 
 data class WordWithLinks(
-    val word: Word,
-    val links: List<Link>,
+    val word: WordID = WordID(),
+    val links: List<LinkID> = emptyList(),
 )

@@ -1,6 +1,6 @@
 package com.gazim.myvocabluary.data
 
-import com.gazim.myvocabluary.app.model.Word
+import com.gazim.myvocabluary.app.model.WordID
 
 class TestWordRepository(private val databaseRepository: IDatabaseRepository) : ITestWordRepository {
     private var _wordIds: Iterator<Int>? = null
@@ -11,7 +11,7 @@ class TestWordRepository(private val databaseRepository: IDatabaseRepository) : 
 
     override suspend fun hasNext(): Boolean = wordIds.hasNext()
 
-    override suspend fun nextWord(): Word = databaseRepository.getWordById(wordIds.next())
+    override suspend fun nextWord(): WordID = databaseRepository.getWordById(wordIds.next())
 
     override suspend fun finish() {
         _wordIds = null

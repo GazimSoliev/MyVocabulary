@@ -44,7 +44,7 @@ fun LookWordComponent(
     word: String = "",
     transcription: String = "",
     translation: String = "",
-    linksOfPronunciation: List<String> = listOf(),
+    linksOfPronunciation: List<String> = emptyList(),
     back: () -> Unit = {},
 ) {
     @Composable

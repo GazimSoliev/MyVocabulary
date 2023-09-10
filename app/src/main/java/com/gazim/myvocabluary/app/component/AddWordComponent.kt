@@ -39,7 +39,7 @@ fun AddWordComponent(
     changeWord: TextFieldChange = {},
     changeTranscription: TextFieldChange = {},
     changeTranslation: TextFieldChange = {},
-    linksOfPronunciation: List<TextFieldValue> = listOf(),
+    linksOfPronunciation: List<TextFieldValue> = emptyList(),
     changeLink: (Int, TextFieldValue) -> Unit = { _, _ -> },
     addTextField: () -> Unit = {},
     back: () -> Unit = {},

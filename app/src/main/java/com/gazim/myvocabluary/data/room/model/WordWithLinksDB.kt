@@ -6,5 +6,5 @@ import androidx.room.Relation
 data class WordWithLinksDB(
     @Embedded val word: WordDB = WordDB(),
     @Relation(parentColumn = "id", entityColumn = "wordId")
-    val links: List<LinkDB> = listOf(),
+    val links: List<LinkDB> = emptyList(),
 )
