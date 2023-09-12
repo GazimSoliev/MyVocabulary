@@ -13,11 +13,25 @@ interface VocabularyDAO {
     @Insert
     suspend fun insertWord(word: WordDB): Long
 
+    suspend fun insertWordDB(word: WordDB) = word.copy(id = insertWord(word).toInt())
+
+    @Insert
+    suspend fun insertWords(words: List<WordDB>): List<Long>
+
+    suspend fun insertWordDBs(words: List<WordDB>): List<WordDB> =
+        insertWords(words).zip(words) { i, w -> w.copy(id = i.toInt()) }
+
     @Insert
     suspend fun insertLink(link: LinkDB): Long
 
+    suspend fun insertLinkDB(link: LinkDB): LinkDB =
+        link.copy(id = insertLink(link).toInt())
+
     @Insert
     suspend fun insertLinks(links: List<LinkDB>): List<Long>
+
+    suspend fun insertLinkDBs(links: List<LinkDB>): List<LinkDB> =
+        insertLinks(links).zip(links) { i, l -> l.copy(id = i.toInt()) }
 
     @Transaction
     @Query("select * from WordDB where id = :wordId")

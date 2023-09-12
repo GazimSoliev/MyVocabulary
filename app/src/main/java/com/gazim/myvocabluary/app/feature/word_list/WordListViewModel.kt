@@ -4,6 +4,7 @@ import com.gazim.myvocabluary.app.common.BaseViewModel
 import com.gazim.myvocabluary.app.feature.word_list.WordListAction.AddWord
 import com.gazim.myvocabluary.app.feature.word_list.WordListAction.RefreshList
 import com.gazim.myvocabluary.app.feature.word_list.WordListAction.TestWord
+import com.gazim.myvocabluary.app.feature.word_list.WordListAction.ToImportScreen
 import com.gazim.myvocabluary.app.feature.word_list.WordListAction.ViewWord
 import com.gazim.myvocabluary.data.DatabaseRepository
 import com.gazim.myvocabluary.data.IChosenWord
@@ -30,6 +31,7 @@ class WordListViewModel(
                 }
                 is RefreshList -> loadWords()
                 is TestWord -> postSideEffect(WordListSideEffect.TestWord)
+                is ToImportScreen -> postSideEffect(WordListSideEffect.ImportWords)
             }
         }
     }

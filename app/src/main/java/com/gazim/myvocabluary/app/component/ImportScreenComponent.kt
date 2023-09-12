@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Download
 import androidx.compose.material.icons.outlined.Keyboard
 import androidx.compose.material.icons.outlined.Schedule
 import androidx.compose.material3.DatePicker
@@ -56,9 +57,11 @@ import kotlinx.datetime.toLocalDateTime
 @Composable
 fun ImportScreenComponent(
     onDateChange: (LocalDate) -> Unit = {},
-    onTimeTextChange: (LocalTime) -> Unit = {},
+    onTimeChange: (LocalTime) -> Unit = {},
     textForImport: TextFieldValue = TextFieldValue(""),
     onTextChange: (TextFieldValue) -> Unit = {},
+    back: () -> Unit = {},
+    import: () -> Unit = {},
 ) {
     var dateText by remember { mutableStateOf("Select date") }
     var timeText by remember { mutableStateOf("Select time") }
@@ -74,8 +77,13 @@ fun ImportScreenComponent(
                         Text("Import words")
                     },
                     navigationIcon = {
-                        IconButton(onClick = {}) {
+                        IconButton(onClick = back) {
                             Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+                        }
+                    },
+                    actions = {
+                        IconButton(onClick = import) {
+                            Icon(Icons.Default.Download, contentDescription = "Download")
                         }
                     }
                 )
@@ -153,7 +161,7 @@ fun ImportScreenComponent(
                                 LocalTime(hour = hour, minute = minute)
                             }
                             timeText = selectedTime.toString()
-                            onTimeTextChange(selectedTime)
+                            onTimeChange(selectedTime)
                         },
                     ) {
                         Text("OK")

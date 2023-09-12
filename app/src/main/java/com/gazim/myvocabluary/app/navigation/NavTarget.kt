@@ -9,4 +9,5 @@ sealed class NavTarget : Parcelable {
     data object WordAdd : NavTarget()
     data object WordView : NavTarget()
     data object WordTest : NavTarget()
+    data object ImportWords : NavTarget()
 }

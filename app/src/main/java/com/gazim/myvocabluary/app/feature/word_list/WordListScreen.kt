@@ -7,6 +7,7 @@ import com.gazim.myvocabluary.app.component.ListOfWordsComponent
 import com.gazim.myvocabluary.app.feature.word_list.WordListAction.AddWord
 import com.gazim.myvocabluary.app.feature.word_list.WordListAction.RefreshList
 import com.gazim.myvocabluary.app.feature.word_list.WordListAction.TestWord
+import com.gazim.myvocabluary.app.feature.word_list.WordListAction.ToImportScreen
 import com.gazim.myvocabluary.app.feature.word_list.WordListAction.ViewWord
 
 class WordListScreen(
@@ -14,6 +15,7 @@ class WordListScreen(
     private val addWordAction: () -> Unit = {},
     private val viewWordAction: () -> Unit = {},
     private val testWordAction: () -> Unit = {},
+    private val importWordsAction: () -> Unit = {}
 ) : BaseScreen<WordListState, WordListSideEffect, WordListAction, WordListViewModel>(
     buildContext,
     WordListViewModel::class,
@@ -24,6 +26,7 @@ class WordListScreen(
             is WordListSideEffect.AddWord -> addWordAction()
             is WordListSideEffect.ViewWord -> viewWordAction()
             is WordListSideEffect.TestWord -> testWordAction()
+            is WordListSideEffect.ImportWords -> importWordsAction()
         }
     }
 
@@ -34,6 +37,7 @@ class WordListScreen(
             addWord = { sendAction(AddWord) },
             launchTest = { sendAction(TestWord) },
             onWordClick = { sendAction(ViewWord(it)) },
+            toImportScreen = { sendAction(ToImportScreen) }
         )
     }
 

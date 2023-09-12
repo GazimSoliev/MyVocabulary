@@ -1,5 +1,6 @@
 package com.gazim.myvocabluary.di
 
+import com.gazim.myvocabluary.app.feature.import_words.ImportWordsViewModel
 import com.gazim.myvocabluary.app.feature.word_add.WordAddViewModel
 import com.gazim.myvocabluary.app.feature.word_list.WordListViewModel
 import com.gazim.myvocabluary.app.feature.word_test.WordTestViewModel
@@ -12,4 +13,5 @@ val viewModelModule = module {
     factoryOf(::WordAddViewModel)
     factoryOf(::WordViewViewModel)
     factoryOf(::WordTestViewModel)
+    factoryOf(::ImportWordsViewModel)
 }

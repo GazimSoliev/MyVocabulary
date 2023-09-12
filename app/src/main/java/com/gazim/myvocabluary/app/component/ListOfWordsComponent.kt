@@ -14,10 +14,12 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.Publish
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -33,13 +35,26 @@ import com.gazim.myvocabluary.app.theme.MyVocabluaryTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ListOfWordsComponent(words: List<WordID> = emptyList(), addWord: () -> Unit = {}, launchTest: () -> Unit = {}, onWordClick: (Int) -> Unit = {}) {
+fun ListOfWordsComponent(
+    words: List<WordID> = emptyList(),
+    addWord: () -> Unit = {},
+    launchTest: () -> Unit = {},
+    onWordClick: (Int) -> Unit = {},
+    toImportScreen: () -> Unit = {}
+) {
     Surface {
         Scaffold(
             topBar = {
-                TopAppBar(title = {
-                    Text("Words")
-                })
+                TopAppBar(
+                    title = {
+                        Text("Words")
+                    },
+                    actions = {
+                        IconButton(onClick = toImportScreen) {
+                            Icon(Icons.Default.Publish, contentDescription = "Import")
+                        }
+                    }
+                )
             },
             floatingActionButton = {
                 Column {
@@ -65,11 +80,26 @@ fun ListOfWordsComponent(words: List<WordID> = emptyList(), addWord: () -> Unit 
                     end = 16.dp,
                 )
             }
-            LazyColumn(contentPadding = contentPadding, verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            LazyColumn(
+                contentPadding = contentPadding,
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
                 items(words) {
-                    Card(Modifier.fillMaxWidth().clickable(onClick = { onWordClick(it.id) })) {
-                        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                            Text("${it.word} - [${it.transcription}] - ${it.translation}", maxLines = 1, softWrap = false, overflow = TextOverflow.Ellipsis)
+                    Card(
+                        Modifier
+                            .fillMaxWidth()
+                            .clickable(onClick = { onWordClick(it.id) })
+                    ) {
+                        Column(
+                            Modifier.padding(16.dp),
+                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            Text(
+                                "${it.word} - [${it.transcription}] - ${it.translation}",
+                                maxLines = 1,
+                                softWrap = false,
+                                overflow = TextOverflow.Ellipsis
+                            )
                             Text("${it.createdAt}")
                         }
                     }
