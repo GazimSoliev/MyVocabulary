@@ -12,7 +12,7 @@ class WordsParser {
                 word = it.groupValues[2] + it.groupValues[7],
                 transcription = it.groupValues[3],
                 translation = it.groupValues[5] + it.groupValues[8],
-                links = it.groupValues[4].split(',').map(String::trim)
+                links = it.groupValues[4].split(',').map(String::trim),
             )
         }
 }

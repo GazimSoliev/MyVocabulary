@@ -79,18 +79,23 @@ dependencies {
     debugImplementation(libs.ui.test.manifest)
     implementation(libs.lifecycle.viewmodel.compose)
 
+    // Icons
     implementation(libs.androidx.material.icons.extended)
 
+    // Decompose
     implementation(libs.decompose)
     implementation(libs.decompose.extensions.compose.jetpack)
 
+    // Orbit
     implementation(libs.orbit.core)
     implementation(libs.orbit.viewmodel)
     implementation(libs.orbit.compose)
 
+    // Koin
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)
 
+    // Room
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
@@ -104,4 +109,9 @@ dependencies {
 
     // Kotlin DateTime
     implementation(libs.kotlinx.datetime)
+
+    // Voyager Navigation
+    implementation(libs.voyager.navigator)
+    implementation(libs.voyager.androidx)
+    implementation(libs.voyager.koin)
 }

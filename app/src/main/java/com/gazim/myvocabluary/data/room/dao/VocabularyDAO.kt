@@ -1,6 +1,7 @@
 package com.gazim.myvocabluary.data.room.dao
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
@@ -48,4 +49,10 @@ interface VocabularyDAO {
 
     @Query("select * from WordDB where id = :id")
     suspend fun getWordById(id: Int): WordDB
+
+    @Delete
+    suspend fun deleteWords(words: List<WordDB>)
+
+    @Delete
+    suspend fun deleteLinks(links: List<LinkDB>)
 }

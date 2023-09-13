@@ -8,6 +8,7 @@ import com.gazim.myvocabluary.app.feature.import_words.ImportWordsAction.ChangeT
 import com.gazim.myvocabluary.app.feature.import_words.ImportWordsAction.Import
 import com.gazim.myvocabluary.data.DatabaseRepository
 import com.gazim.myvocabluary.data.parser.WordsParser
+import kotlinx.datetime.atTime
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
@@ -16,7 +17,7 @@ import org.orbitmvi.orbit.viewmodel.container
 
 class ImportWordsViewModel(
     private val databaseRepository: DatabaseRepository,
-    private val wordsParser: WordsParser
+    private val wordsParser: WordsParser,
 ) : BaseViewModel<ImportWordsState, ImportWordsSideEffect, ImportWordsAction>() {
     override fun handleAction(action: ImportWordsAction) {
         intent {
@@ -26,7 +27,10 @@ class ImportWordsViewModel(
                 is ChangeText -> reduce { state.copy(textForImport = action.text) }
                 is Back -> postSideEffect(ImportWordsSideEffect.Back)
                 is Import -> {
-                    databaseRepository.insertWords(wordsParser.parse(state.textForImport.text))
+                    databaseRepository.insertWords(
+                        wordsParser.parse(state.textForImport.text),
+                        state.localDate.atTime(state.localTime)
+                    )
                     postSideEffect(ImportWordsSideEffect.Back)
                 }
             }
