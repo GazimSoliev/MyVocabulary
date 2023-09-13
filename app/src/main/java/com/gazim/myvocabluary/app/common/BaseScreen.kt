@@ -39,12 +39,12 @@ abstract class BaseScreen<
 
     @Composable
     override fun Content() {
+        navigator = LocalNavigator.currentOrThrow
         viewModel = getViewModel(clazz.kotlin)
         _state = viewModel.container.stateFlow.collectAsState()
         LaunchedEffect(viewModel) {
             viewModel.container.sideEffectFlow.collect { launch { handleSideEffect(it) } }
         }
-        navigator = LocalNavigator.currentOrThrow
         LifecycleEffect(
             onStarted = ::onStart,
             onDisposed = ::onDisposed,
