@@ -25,10 +25,14 @@ fun WordItem(
 ) {
     Card(
         modifier = modifier,
-        border = if (selected) BorderStroke(
-            4.dp,
-            colorScheme.primary
-        ) else null
+        border = if (selected) {
+            BorderStroke(
+                4.dp,
+                colorScheme.primary,
+            )
+        } else {
+            null
+        },
     ) {
         Column(
             Modifier.padding(16.dp),
@@ -52,7 +56,7 @@ fun WordItemPreview() {
         word = "word",
         transcription = "transcription",
         translation = "translation",
-        createdAt = "01/09/2023 12:00"
+        createdAt = "01/09/2023 12:00",
     )
 }
 

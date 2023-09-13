@@ -29,7 +29,7 @@ class ImportWordsViewModel(
                 is Import -> {
                     databaseRepository.insertWords(
                         wordsParser.parse(state.textForImport.text),
-                        state.localDate.atTime(state.localTime)
+                        state.localDate.atTime(state.localTime),
                     )
                     postSideEffect(ImportWordsSideEffect.Back)
                 }

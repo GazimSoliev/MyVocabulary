@@ -9,4 +9,4 @@ data class WordID(
     override val translation: String = "",
     override val createdAt: LocalDateTime = LocalDateTime.now(),
     override val id: Int = 0,
-): IWordID
+) : IWordID

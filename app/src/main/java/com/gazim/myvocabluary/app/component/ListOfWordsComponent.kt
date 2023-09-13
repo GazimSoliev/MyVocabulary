@@ -1,6 +1,9 @@
 package com.gazim.myvocabluary.app.component
 
 import android.content.res.Configuration
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
@@ -54,11 +57,13 @@ fun ListOfWordsComponent(
     onDeleteChosenWords: () -> Unit = {},
     onClearChosenWords: () -> Unit = {},
 ) {
+    val enterAnim = fadeIn()
+    val exitAnim = fadeOut()
     val haptics = LocalHapticFeedback.current
     Surface {
         Scaffold(
             topBar = {
-                if (choseMode)
+                AnimatedVisibility(visible = choseMode, enter = enterAnim, exit = exitAnim) {
                     CenterAlignedTopAppBar(
                         title = {
                             Text("Selected words: $chosenWordsCount")
@@ -74,7 +79,8 @@ fun ListOfWordsComponent(
                             }
                         },
                     )
-                else
+                }
+                AnimatedVisibility(visible = !choseMode, enter = enterAnim, exit = exitAnim) {
                     TopAppBar(
                         title = {
                             Text("Words")
@@ -85,6 +91,7 @@ fun ListOfWordsComponent(
                             }
                         },
                     )
+                }
             },
             floatingActionButton = {
                 Column {
@@ -116,27 +123,29 @@ fun ListOfWordsComponent(
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 items(words, key = IWordID::id) {
-                    WordItem(modifier = Modifier
-                        .fillMaxWidth()
-                        .combinedClickable(
-                            onLongClick = {
-                                if (choseMode) return@combinedClickable
-                                haptics.performHapticFeedback(HapticFeedbackType.LongPress)
-                                selectWord(it)
-                            },
-                            onClick = {
-                                when {
-                                    it is IChosenWord -> unselectWord(it)
-                                    choseMode -> selectWord(it)
-                                    else -> onWordClick(it.id)
-                                }
-                            })
-                        .animateItemPlacement(),
+                    WordItem(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .combinedClickable(
+                                onLongClick = {
+                                    if (choseMode) return@combinedClickable
+                                    haptics.performHapticFeedback(HapticFeedbackType.LongPress)
+                                    selectWord(it)
+                                },
+                                onClick = {
+                                    when {
+                                        it is IChosenWord -> unselectWord(it)
+                                        choseMode -> selectWord(it)
+                                        else -> onWordClick(it.id)
+                                    }
+                                },
+                            )
+                            .animateItemPlacement(),
                         word = it.word,
                         transcription = it.transcription,
                         translation = it.translation,
                         createdAt = it.createdAt.toString(),
-                        selected = it is IChosenWord
+                        selected = it is IChosenWord,
                     )
                 }
             }

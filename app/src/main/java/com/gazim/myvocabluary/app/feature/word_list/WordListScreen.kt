@@ -19,7 +19,7 @@ import com.gazim.myvocabluary.app.feature.word_view.WordViewScreen
 
 class WordListScreen :
     BaseScreen<WordListState, WordListSideEffect, WordListAction, WordListViewModel>(
-        WordListViewModel::class
+        WordListViewModel::class,
     ) {
 
     override suspend fun handleSideEffect(sideEffect: WordListSideEffect) {
@@ -44,7 +44,7 @@ class WordListScreen :
             addWord = { sendAction(AddWord) },
             toImportScreen = { sendAction(ToImportScreen) },
             onWordClick = { sendAction(ViewWord(it)) },
-            launchTest = { sendAction(TestWord) }
+            launchTest = { sendAction(TestWord) },
         )
     }
 

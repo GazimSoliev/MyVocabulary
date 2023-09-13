@@ -26,6 +26,7 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
@@ -114,4 +115,7 @@ dependencies {
     implementation(libs.voyager.navigator)
     implementation(libs.voyager.androidx)
     implementation(libs.voyager.koin)
+
+    // Material 3 Theme XML
+    implementation(libs.material)
 }

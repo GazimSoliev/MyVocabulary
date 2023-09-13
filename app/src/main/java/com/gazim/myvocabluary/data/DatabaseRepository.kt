@@ -28,7 +28,7 @@ class DatabaseRepository(private val vocabularyDAO: VocabularyDAO) : IDatabaseRe
 
     override suspend fun insertWords(
         words: List<IWord>,
-        createdAt: LocalDateTime
+        createdAt: LocalDateTime,
     ): List<IWordWithLinks> {
         val wordDBs = vocabularyDAO.insertWordDBs(
             words.map {

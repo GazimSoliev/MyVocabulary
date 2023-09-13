@@ -9,7 +9,7 @@ import com.gazim.myvocabluary.app.model.IWordID
 data class WordListState(
     val words: List<IWordID> = emptyList(),
     val chosenWordsCount: Int = 0,
-    val choseMode: Boolean = false
+    val choseMode: Boolean = false,
 ) : IState
 
 sealed interface WordListSideEffect : ISideEffect {

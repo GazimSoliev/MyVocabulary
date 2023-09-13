@@ -49,7 +49,7 @@ class WordListViewModel(
                     state.copy(
                         words = state.words.map { if (it is IChosenWord) it.toWordID() else it },
                         choseMode = false,
-                        chosenWordsCount = 0
+                        chosenWordsCount = 0,
                     )
                 }
 
@@ -57,7 +57,7 @@ class WordListViewModel(
                     state.copy(
                         words = state.words.map { if (it == action.word) it.toChosenWordID() else it },
                         choseMode = true,
-                        chosenWordsCount = state.chosenWordsCount + 1
+                        chosenWordsCount = state.chosenWordsCount + 1,
                     )
                 }
 
@@ -65,7 +65,7 @@ class WordListViewModel(
                     state.copy(
                         words = state.words.map { if (it is IChosenWord && it == action.word) it.toWordID() else it },
                         choseMode = state.chosenWordsCount > 1,
-                        chosenWordsCount = state.chosenWordsCount - 1
+                        chosenWordsCount = state.chosenWordsCount - 1,
                     )
                 }
             }
