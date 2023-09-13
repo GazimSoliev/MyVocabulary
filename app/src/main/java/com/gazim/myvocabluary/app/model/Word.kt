@@ -1,8 +1,8 @@
 package com.gazim.myvocabluary.app.model
 
 data class Word(
-    val word: String = "",
-    val transcription: String = "",
-    val translation: String = "",
-    val links: List<String> = emptyList(),
-)
+    override val word: String = "",
+    override val transcription: String = "",
+    override val translation: String = "",
+    override val links: List<String> = emptyList(),
+) : IWord

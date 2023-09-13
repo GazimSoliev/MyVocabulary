@@ -3,10 +3,13 @@ package com.gazim.myvocabluary.app.feature.word_list
 import com.gazim.myvocabluary.app.common.IAction
 import com.gazim.myvocabluary.app.common.ISideEffect
 import com.gazim.myvocabluary.app.common.IState
-import com.gazim.myvocabluary.app.model.WordID
+import com.gazim.myvocabluary.app.model.IChosenWord
+import com.gazim.myvocabluary.app.model.IWordID
 
 data class WordListState(
-    val words: List<WordID> = emptyList(),
+    val words: List<IWordID> = emptyList(),
+    val chosenWordsCount: Int = 0,
+    val choseMode: Boolean = false
 ) : IState
 
 sealed interface WordListSideEffect : ISideEffect {
@@ -18,7 +21,10 @@ sealed interface WordListSideEffect : ISideEffect {
 
 sealed interface WordListAction : IAction {
     data class ViewWord(val wordId: Int) : WordListAction
-    data class DeleteWords(val words: List<WordID>) : WordListAction
+    data class SelectWord(val word: IWordID) : WordListAction
+    data class UnselectWord(val word: IChosenWord) : WordListAction
+    data object DeleteChosenWords : WordListAction
+    data object ClearChosenWords : WordListAction
     data object AddWord : WordListAction
     data object RefreshList : WordListAction
     data object TestWord : WordListAction

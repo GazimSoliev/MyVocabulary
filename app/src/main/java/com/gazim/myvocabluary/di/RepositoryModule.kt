@@ -6,6 +6,7 @@ import com.gazim.myvocabluary.data.IChosenWordRepostitory
 import com.gazim.myvocabluary.data.IDatabaseRepository
 import com.gazim.myvocabluary.data.ITestWordRepository
 import com.gazim.myvocabluary.data.TestWordRepository
+import com.gazim.myvocabluary.data.parser.IWordsParser
 import com.gazim.myvocabluary.data.parser.WordsParser
 import com.gazim.myvocabluary.data.room.VocabularyDatabase
 import com.gazim.myvocabluary.data.room.dao.VocabularyDAO
@@ -18,6 +19,6 @@ val repositoryModule = module {
     singleOf(::TestWordRepository) bind ITestWordRepository::class
     singleOf(::ChosenWordRepository) bind IChosenWordRepostitory::class
     singleOf(::DatabaseRepository) bind IDatabaseRepository::class
-    singleOf(::WordsParser)
+    singleOf(::WordsParser) bind IWordsParser::class
     single<VocabularyDAO> { VocabularyDatabase.getInstance(androidContext()).vocabularyDAO() }
 }

@@ -1,12 +1,13 @@
 package com.gazim.myvocabluary.data.parser
 
+import com.gazim.myvocabluary.app.model.IWord
 import com.gazim.myvocabluary.app.model.Word
 
-class WordsParser {
+class WordsParser : IWordsParser {
     private val template =
         Regex("""^((.*(?!-)\S)\s?-?\s?\[(.+)]\s?-?\s?\((.+)\)\s?-?\s?(.+)\s?)|((.*\S)\s?-\s?(.+)\s?)$""")
 
-    fun parse(text: String): List<Word> =
+    override fun parse(text: String): List<IWord> =
         text.split('\n').filter(String::isNotBlank).mapNotNull(template::find).map {
             Word(
                 word = it.groupValues[2] + it.groupValues[7],

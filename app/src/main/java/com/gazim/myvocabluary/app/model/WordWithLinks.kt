@@ -1,6 +1,6 @@
 package com.gazim.myvocabluary.app.model
 
 data class WordWithLinks(
-    val word: WordID = WordID(),
-    val links: List<LinkID> = emptyList(),
-)
+    override val word: IWordID = WordID(),
+    override val links: List<ILinkID> = emptyList(),
+) : IWordWithLinks

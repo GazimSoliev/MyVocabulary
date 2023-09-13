@@ -6,10 +6,13 @@ import com.gazim.myvocabluary.app.component.ListOfWordsComponent
 import com.gazim.myvocabluary.app.feature.import_words.ImportWordsScreen
 import com.gazim.myvocabluary.app.feature.word_add.WordAddScreen
 import com.gazim.myvocabluary.app.feature.word_list.WordListAction.AddWord
-import com.gazim.myvocabluary.app.feature.word_list.WordListAction.DeleteWords
+import com.gazim.myvocabluary.app.feature.word_list.WordListAction.ClearChosenWords
+import com.gazim.myvocabluary.app.feature.word_list.WordListAction.DeleteChosenWords
 import com.gazim.myvocabluary.app.feature.word_list.WordListAction.RefreshList
+import com.gazim.myvocabluary.app.feature.word_list.WordListAction.SelectWord
 import com.gazim.myvocabluary.app.feature.word_list.WordListAction.TestWord
 import com.gazim.myvocabluary.app.feature.word_list.WordListAction.ToImportScreen
+import com.gazim.myvocabluary.app.feature.word_list.WordListAction.UnselectWord
 import com.gazim.myvocabluary.app.feature.word_list.WordListAction.ViewWord
 import com.gazim.myvocabluary.app.feature.word_test.WordTestScreen
 import com.gazim.myvocabluary.app.feature.word_view.WordViewScreen
@@ -32,11 +35,16 @@ class WordListScreen :
     override fun Screen() {
         ListOfWordsComponent(
             words = state.words,
+            chosenWordsCount = state.chosenWordsCount,
+            choseMode = state.choseMode,
+            selectWord = { sendAction(SelectWord(it)) },
+            unselectWord = { sendAction(UnselectWord(it)) },
+            onClearChosenWords = { sendAction(ClearChosenWords) },
+            onDeleteChosenWords = { sendAction(DeleteChosenWords) },
             addWord = { sendAction(AddWord) },
-            launchTest = { sendAction(TestWord) },
-            onWordClick = { sendAction(ViewWord(it)) },
             toImportScreen = { sendAction(ToImportScreen) },
-            onDelete = { sendAction(DeleteWords(it)) }
+            onWordClick = { sendAction(ViewWord(it)) },
+            launchTest = { sendAction(TestWord) }
         )
     }
 

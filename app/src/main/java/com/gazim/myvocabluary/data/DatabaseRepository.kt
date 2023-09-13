@@ -1,8 +1,9 @@
 package com.gazim.myvocabluary.data
 
-import com.gazim.myvocabluary.app.model.LinkID
-import com.gazim.myvocabluary.app.model.Word
-import com.gazim.myvocabluary.app.model.WordID
+import com.gazim.myvocabluary.app.model.ILinkID
+import com.gazim.myvocabluary.app.model.IWord
+import com.gazim.myvocabluary.app.model.IWordID
+import com.gazim.myvocabluary.app.model.IWordWithLinks
 import com.gazim.myvocabluary.app.model.WordWithLinks
 import com.gazim.myvocabluary.data.mapper.toLink
 import com.gazim.myvocabluary.data.mapper.toLinkDB
@@ -16,19 +17,19 @@ import kotlinx.datetime.LocalDateTime
 
 class DatabaseRepository(private val vocabularyDAO: VocabularyDAO) : IDatabaseRepository {
 
-    override suspend fun getWords(): List<WordID> =
+    override suspend fun getWords(): List<IWordID> =
         vocabularyDAO.getWords().map(WordDB::toWord)
 
-    override suspend fun getLinks(wordId: Int): List<LinkID> =
+    override suspend fun getLinks(wordId: Int): List<ILinkID> =
         vocabularyDAO.getLinks(wordId).map(LinkDB::toLink)
 
-    override suspend fun insertWord(word: WordID) =
+    override suspend fun insertWord(word: IWordID): IWordID =
         vocabularyDAO.insertWordDB(word.toWordDB()).toWord()
 
     override suspend fun insertWords(
-        words: List<Word>,
+        words: List<IWord>,
         createdAt: LocalDateTime
-    ): List<WordWithLinks> {
+    ): List<IWordWithLinks> {
         val wordDBs = vocabularyDAO.insertWordDBs(
             words.map {
                 WordDB(
@@ -59,23 +60,23 @@ class DatabaseRepository(private val vocabularyDAO: VocabularyDAO) : IDatabaseRe
         }
     }
 
-    override suspend fun insertLink(link: LinkID) =
+    override suspend fun insertLink(link: ILinkID): ILinkID =
         vocabularyDAO.insertLinkDB(link.toLinkDB()).toLink()
 
-    override suspend fun getWordWithLinks(wordId: Int): WordWithLinks =
+    override suspend fun getWordWithLinks(wordId: Int): IWordWithLinks =
         vocabularyDAO.getWordsWithLink(wordId).toWordWithLinks()
 
-    override suspend fun insertLinks(links: List<LinkID>): List<LinkID> =
-        vocabularyDAO.insertLinkDBs(links.map(LinkID::toLinkDB)).map(LinkDB::toLink)
+    override suspend fun insertLinks(links: List<ILinkID>): List<ILinkID> =
+        vocabularyDAO.insertLinkDBs(links.map(ILinkID::toLinkDB)).map(LinkDB::toLink)
 
     override suspend fun getRandomWordIds(): List<Int> =
         vocabularyDAO.getWordIds().shuffled()
 
-    override suspend fun getWordById(wordId: Int): WordID =
+    override suspend fun getWordById(wordId: Int): IWordID =
         vocabularyDAO.getWordById(wordId).toWord()
 
-    override suspend fun deleteWordsWithLinks(words: List<WordID>) {
+    override suspend fun deleteWordsWithLinks(words: List<IWordID>) {
         vocabularyDAO.deleteLinks(words.flatMap { vocabularyDAO.getLinks(wordId = it.id) })
-        vocabularyDAO.deleteWords(words.map(WordID::toWordDB))
+        vocabularyDAO.deleteWords(words.map(IWordID::toWordDB))
     }
 }
