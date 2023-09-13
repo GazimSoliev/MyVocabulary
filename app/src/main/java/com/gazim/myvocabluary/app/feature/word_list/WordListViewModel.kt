@@ -2,12 +2,13 @@ package com.gazim.myvocabluary.app.feature.word_list
 
 import com.gazim.myvocabluary.app.common.BaseViewModel
 import com.gazim.myvocabluary.app.feature.word_list.WordListAction.AddWord
+import com.gazim.myvocabluary.app.feature.word_list.WordListAction.DeleteWords
 import com.gazim.myvocabluary.app.feature.word_list.WordListAction.RefreshList
 import com.gazim.myvocabluary.app.feature.word_list.WordListAction.TestWord
 import com.gazim.myvocabluary.app.feature.word_list.WordListAction.ToImportScreen
 import com.gazim.myvocabluary.app.feature.word_list.WordListAction.ViewWord
 import com.gazim.myvocabluary.data.DatabaseRepository
-import com.gazim.myvocabluary.data.IChosenWord
+import com.gazim.myvocabluary.data.IChosenWordRepostitory
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.syntax.simple.SimpleSyntax
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -19,7 +20,7 @@ private typealias IntentScope = SimpleSyntax<WordListState, WordListSideEffect>
 
 class WordListViewModel(
     private val databaseRepository: DatabaseRepository,
-    private val chosenWord: IChosenWord,
+    private val chosenWord: IChosenWordRepostitory,
 ) : BaseViewModel<WordListState, WordListSideEffect, WordListAction>() {
     override fun handleAction(action: WordListAction) {
         intent {
@@ -29,9 +30,14 @@ class WordListViewModel(
                     chosenWord.setWord(action.wordId)
                     postSideEffect(WordListSideEffect.ViewWord)
                 }
+
                 is RefreshList -> loadWords()
                 is TestWord -> postSideEffect(WordListSideEffect.TestWord)
                 is ToImportScreen -> postSideEffect(WordListSideEffect.ImportWords)
+                is DeleteWords -> {
+                    databaseRepository.deleteWordsWithLinks(action.words)
+                    loadWords()
+                }
             }
         }
     }

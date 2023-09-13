@@ -85,15 +85,15 @@ fun ImportScreenComponent(
                         IconButton(onClick = import) {
                             Icon(Icons.Default.Download, contentDescription = "Download")
                         }
-                    }
+                    },
                 )
-            }
+            },
         ) { paddingValues ->
             Column(
                 Modifier
                     .padding(paddingValues)
                     .padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 Row {
                     FilledTonalButton(onClick = {
@@ -111,7 +111,7 @@ fun ImportScreenComponent(
                 OutlinedTextField(
                     value = textForImport,
                     onValueChange = onTextChange,
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier.fillMaxSize(),
                 )
             }
         }
@@ -132,7 +132,7 @@ fun ImportScreenComponent(
                                 onDateChange(selectedLocalTime)
                             }
                         },
-                        enabled = confirmEnabled
+                        enabled = confirmEnabled,
                     ) {
                         Text("OK")
                     }
@@ -141,11 +141,11 @@ fun ImportScreenComponent(
                     TextButton(
                         onClick = {
                             openDatePickerDialog = false
-                        }
+                        },
                     ) {
                         Text("Cancel")
                     }
-                }
+                },
             ) {
                 DatePicker(state = datePickerState)
             }
@@ -171,7 +171,7 @@ fun ImportScreenComponent(
                     TextButton(
                         onClick = {
                             openTimePickerDialog = false
-                        }
+                        },
                     ) {
                         Text("Cancel")
                     }
@@ -183,13 +183,16 @@ fun ImportScreenComponent(
                     IconButton(onClick = { timePicker = !timePicker }) {
                         Icon(
                             if (timePicker) Icons.Outlined.Keyboard else Icons.Outlined.Schedule,
-                            contentDescription = null
+                            contentDescription = null,
                         )
                     }
-                }
+                },
             ) {
-                if (timePicker) TimePicker(timePickerState)
-                else TimeInput(timePickerState)
+                if (timePicker) {
+                    TimePicker(timePickerState)
+                } else {
+                    TimeInput(timePickerState)
+                }
             }
         }
     }
@@ -199,7 +202,7 @@ fun ImportScreenComponent(
 @Composable
 fun ImportScreenComponentPreview() {
     ImportScreenComponent(
-        textForImport = TextFieldValue("Test")
+        textForImport = TextFieldValue("Test"),
     )
 }
 
@@ -229,7 +232,7 @@ fun TimePickerDialog(
     Dialog(
         onDismissRequest = onDismissRequest,
         properties = DialogProperties(
-            usePlatformDefaultWidth = false
+            usePlatformDefaultWidth = false,
         ),
     ) {
         Surface(
@@ -239,25 +242,25 @@ fun TimePickerDialog(
             contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier
                 .width(IntrinsicSize.Min)
-                .height(IntrinsicSize.Min)
+                .height(IntrinsicSize.Min),
         ) {
             Column(
                 modifier = Modifier.padding(24.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 20.dp),
                     text = title,
-                    style = MaterialTheme.typography.labelMedium
+                    style = MaterialTheme.typography.labelMedium,
                 )
                 content()
                 Row(
                     modifier = Modifier
                         .height(40.dp)
                         .fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.CenterVertically,
                 ) {
                     toggleButton()
                     Spacer(modifier = Modifier.weight(1f))

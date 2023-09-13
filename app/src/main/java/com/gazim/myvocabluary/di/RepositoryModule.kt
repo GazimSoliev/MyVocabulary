@@ -1,8 +1,8 @@
 package com.gazim.myvocabluary.di
 
-import com.gazim.myvocabluary.data.ChosenWord
+import com.gazim.myvocabluary.data.ChosenWordRepository
 import com.gazim.myvocabluary.data.DatabaseRepository
-import com.gazim.myvocabluary.data.IChosenWord
+import com.gazim.myvocabluary.data.IChosenWordRepostitory
 import com.gazim.myvocabluary.data.IDatabaseRepository
 import com.gazim.myvocabluary.data.ITestWordRepository
 import com.gazim.myvocabluary.data.TestWordRepository
@@ -16,7 +16,7 @@ import org.koin.dsl.module
 
 val repositoryModule = module {
     singleOf(::TestWordRepository) bind ITestWordRepository::class
-    singleOf(::ChosenWord) bind IChosenWord::class
+    singleOf(::ChosenWordRepository) bind IChosenWordRepostitory::class
     singleOf(::DatabaseRepository) bind IDatabaseRepository::class
     singleOf(::WordsParser)
     single<VocabularyDAO> { VocabularyDatabase.getInstance(androidContext()).vocabularyDAO() }

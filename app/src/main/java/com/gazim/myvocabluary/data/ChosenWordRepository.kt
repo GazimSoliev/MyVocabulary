@@ -1,6 +1,6 @@
 package com.gazim.myvocabluary.data
 
-class ChosenWord : IChosenWord {
+class ChosenWordRepository : IChosenWordRepostitory {
     var wordId: Int = 0
     override suspend fun setWord(wordId: Int) {
         this.wordId = wordId

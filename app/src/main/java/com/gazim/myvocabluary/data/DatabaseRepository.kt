@@ -12,6 +12,7 @@ import com.gazim.myvocabluary.data.mapper.toWordWithLinks
 import com.gazim.myvocabluary.data.room.dao.VocabularyDAO
 import com.gazim.myvocabluary.data.room.model.LinkDB
 import com.gazim.myvocabluary.data.room.model.WordDB
+import kotlinx.datetime.LocalDateTime
 
 class DatabaseRepository(private val vocabularyDAO: VocabularyDAO) : IDatabaseRepository {
 
@@ -24,28 +25,36 @@ class DatabaseRepository(private val vocabularyDAO: VocabularyDAO) : IDatabaseRe
     override suspend fun insertWord(word: WordID) =
         vocabularyDAO.insertWordDB(word.toWordDB()).toWord()
 
-    override suspend fun insertWords(words: List<Word>): List<WordWithLinks> {
-        val wordDBs = vocabularyDAO.insertWordDBs(words.map {
-            WordDB(
-                word = it.word,
-                transcription = it.transcription,
-                translation = it.translation,
-                id = 0
-            )
-        })
-        val linkDBsOfWords = wordDBs.zip(words) { wDB, w ->
-            vocabularyDAO.insertLinkDBs(w.links.map {
-                LinkDB(
-                    link = it,
-                    wordId = wDB.id,
-                    id = 0
+    override suspend fun insertWords(
+        words: List<Word>,
+        createdAt: LocalDateTime
+    ): List<WordWithLinks> {
+        val wordDBs = vocabularyDAO.insertWordDBs(
+            words.map {
+                WordDB(
+                    word = it.word,
+                    transcription = it.transcription,
+                    translation = it.translation,
+                    createdAt = createdAt,
+                    id = 0,
                 )
-            })
+            },
+        )
+        val linkDBsOfWords = wordDBs.zip(words) { wDB, w ->
+            vocabularyDAO.insertLinkDBs(
+                w.links.map {
+                    LinkDB(
+                        link = it,
+                        wordId = wDB.id,
+                        id = 0,
+                    )
+                },
+            )
         }
         return wordDBs.zip(linkDBsOfWords) { w, ls ->
             WordWithLinks(
                 word = w.toWord(),
-                links = ls.map(LinkDB::toLink)
+                links = ls.map(LinkDB::toLink),
             )
         }
     }
@@ -64,4 +73,9 @@ class DatabaseRepository(private val vocabularyDAO: VocabularyDAO) : IDatabaseRe
 
     override suspend fun getWordById(wordId: Int): WordID =
         vocabularyDAO.getWordById(wordId).toWord()
+
+    override suspend fun deleteWordsWithLinks(words: List<WordID>) {
+        vocabularyDAO.deleteLinks(words.flatMap { vocabularyDAO.getLinks(wordId = it.id) })
+        vocabularyDAO.deleteWords(words.map(WordID::toWordDB))
+    }
 }

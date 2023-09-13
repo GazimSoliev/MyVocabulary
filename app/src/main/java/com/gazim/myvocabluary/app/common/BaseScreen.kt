@@ -4,14 +4,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewModelScope
-import com.bumble.appyx.navigation.lifecycle.DefaultPlatformLifecycleObserver
-import com.bumble.appyx.navigation.modality.BuildContext
-import com.bumble.appyx.navigation.node.Node
-import kotlinx.coroutines.cancel
+import cafe.adriel.voyager.androidx.AndroidScreen
+import cafe.adriel.voyager.core.lifecycle.LifecycleEffect
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.Navigator
+import cafe.adriel.voyager.navigator.currentOrThrow
+import com.gazim.myvocabluary.app.extensions.getViewModel
 import kotlinx.coroutines.launch
-import org.koin.java.KoinJavaComponent.inject
 import kotlin.reflect.KClass
 
 abstract class BaseScreen<
@@ -19,30 +18,19 @@ abstract class BaseScreen<
     SIDE_EFFECT : ISideEffect,
     ACTION : IAction,
     VIEW_MODEL : BaseViewModel<STATE, SIDE_EFFECT, ACTION>,
-    >(
-    buildContext: BuildContext,
-    clazz: KClass<VIEW_MODEL>,
-) : Node(buildContext = buildContext) {
+    >(kClazz: KClass<VIEW_MODEL>) : AndroidScreen() {
 
-    init {
-        @Suppress("LeakingThis")
-        lifecycle.addObserver(
-            observer = object : DefaultPlatformLifecycleObserver {
-                override fun onCreate() = this@BaseScreen.onCreate()
-                override fun onPause() = this@BaseScreen.onPause()
-                override fun onResume() = this@BaseScreen.onResume()
-                override fun onStart() = this@BaseScreen.onStart()
-                override fun onStop() = this@BaseScreen.onStop()
-                override fun onDestroy() {
-                    this@BaseScreen.onDestroy()
-                    viewModel.viewModelScope.cancel()
-                }
-            },
-        )
-    }
+    private val clazz = kClazz.java
 
-    private val viewModel: VIEW_MODEL by inject(clazz = clazz.java)
+    @Transient
+    private lateinit var viewModel: VIEW_MODEL
+
+    @Transient
+    protected lateinit var navigator: Navigator
+
+    @Transient
     private lateinit var _state: State<STATE>
+
     protected val state get() = _state.value
 
     protected abstract suspend fun handleSideEffect(sideEffect: SIDE_EFFECT)
@@ -50,21 +38,24 @@ abstract class BaseScreen<
     protected fun sendAction(action: ACTION) = viewModel.handleAction(action)
 
     @Composable
-    override fun View(modifier: Modifier) {
+    override fun Content() {
+        viewModel = getViewModel(clazz.kotlin)
         _state = viewModel.container.stateFlow.collectAsState()
         LaunchedEffect(viewModel) {
             viewModel.container.sideEffectFlow.collect { launch { handleSideEffect(it) } }
         }
+        navigator = LocalNavigator.currentOrThrow
+        LifecycleEffect(
+            onStarted = ::onStart,
+            onDisposed = ::onDisposed,
+        )
         Screen()
     }
 
     @Composable
-    abstract fun Screen()
+    protected abstract fun Screen()
 
-    open fun onCreate() = Unit
-    open fun onStart() = Unit
-    open fun onResume() = Unit
-    open fun onPause() = Unit
-    open fun onStop() = Unit
-    open fun onDestroy() = Unit
+    protected open fun onStart() = Unit
+
+    protected open fun onDisposed() = Unit
 }

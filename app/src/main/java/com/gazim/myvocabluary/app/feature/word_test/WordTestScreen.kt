@@ -1,7 +1,6 @@
 package com.gazim.myvocabluary.app.feature.word_test
 
 import androidx.compose.runtime.Composable
-import com.bumble.appyx.navigation.modality.BuildContext
 import com.gazim.myvocabluary.app.common.BaseScreen
 import com.gazim.myvocabluary.app.component.TestWordsComponent
 import com.gazim.myvocabluary.app.feature.word_test.WordTestAction.Back
@@ -9,14 +8,11 @@ import com.gazim.myvocabluary.app.feature.word_test.WordTestAction.ChangeTranscr
 import com.gazim.myvocabluary.app.feature.word_test.WordTestAction.ChangeTranslationVisibility
 import com.gazim.myvocabluary.app.feature.word_test.WordTestAction.NextWord
 
-class WordTestScreen(buildContext: BuildContext, private val backAction: () -> Unit) :
-    BaseScreen<WordTestState, WordTestSideEffect, WordTestAction, WordTestViewModel>(
-        buildContext,
-        WordTestViewModel::class,
-    ) {
+class WordTestScreen :
+    BaseScreen<WordTestState, WordTestSideEffect, WordTestAction, WordTestViewModel>(WordTestViewModel::class) {
     override suspend fun handleSideEffect(sideEffect: WordTestSideEffect) {
         when (sideEffect) {
-            is WordTestSideEffect.Back -> backAction()
+            is WordTestSideEffect.Back -> navigator.pop()
         }
     }
 

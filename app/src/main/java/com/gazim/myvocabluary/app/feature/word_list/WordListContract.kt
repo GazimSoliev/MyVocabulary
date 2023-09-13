@@ -17,8 +17,9 @@ sealed interface WordListSideEffect : ISideEffect {
 }
 
 sealed interface WordListAction : IAction {
-    data object AddWord : WordListAction
     data class ViewWord(val wordId: Int) : WordListAction
+    data class DeleteWords(val words: List<WordID>) : WordListAction
+    data object AddWord : WordListAction
     data object RefreshList : WordListAction
     data object TestWord : WordListAction
     data object ToImportScreen : WordListAction

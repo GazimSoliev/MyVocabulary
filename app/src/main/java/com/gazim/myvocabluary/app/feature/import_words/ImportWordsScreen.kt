@@ -1,7 +1,6 @@
 package com.gazim.myvocabluary.app.feature.import_words
 
 import androidx.compose.runtime.Composable
-import com.bumble.appyx.navigation.modality.BuildContext
 import com.gazim.myvocabluary.app.common.BaseScreen
 import com.gazim.myvocabluary.app.component.ImportScreenComponent
 import com.gazim.myvocabluary.app.feature.import_words.ImportWordsAction.Back
@@ -10,14 +9,11 @@ import com.gazim.myvocabluary.app.feature.import_words.ImportWordsAction.ChangeT
 import com.gazim.myvocabluary.app.feature.import_words.ImportWordsAction.ChangeTime
 import com.gazim.myvocabluary.app.feature.import_words.ImportWordsAction.Import
 
-class ImportWordsScreen(buildContext: BuildContext, private val backAction: () -> Unit) :
-    BaseScreen<ImportWordsState, ImportWordsSideEffect, ImportWordsAction, ImportWordsViewModel>(
-        buildContext,
-        ImportWordsViewModel::class
-    ) {
+class ImportWordsScreen :
+    BaseScreen<ImportWordsState, ImportWordsSideEffect, ImportWordsAction, ImportWordsViewModel>(ImportWordsViewModel::class) {
     override suspend fun handleSideEffect(sideEffect: ImportWordsSideEffect) {
         when (sideEffect) {
-            ImportWordsSideEffect.Back -> backAction()
+            ImportWordsSideEffect.Back -> navigator.pop()
         }
     }
 
