@@ -79,7 +79,7 @@ class WordListViewModel(
         runCatching {
             databaseRepository.getWords()
         }.onSuccess {
-            reduce { WordListState(words = it) }
+            reduce { WordListState(words = it, canScroll = it.isNotEmpty()) }
         }
     }
 }

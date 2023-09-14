@@ -45,6 +45,7 @@ class WordListScreen :
             toImportScreen = { sendAction(ToImportScreen) },
             onWordClick = { sendAction(ViewWord(it)) },
             launchTest = { sendAction(TestWord) },
+            canScroll = state.canScroll
         )
     }
 

@@ -1,5 +1,6 @@
 package com.gazim.myvocabluary.app.component
 
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -8,6 +9,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -23,16 +25,16 @@ fun WordItem(
     translation: String = "",
     createdAt: String = "",
 ) {
+    val animatedBorderStroke by animateDpAsState(
+        (if (selected) 4 else -1).dp,
+        label = "BorderStroke animation of WordItem"
+    )
     Card(
         modifier = modifier,
-        border = if (selected) {
-            BorderStroke(
-                4.dp,
-                colorScheme.primary,
-            )
-        } else {
-            null
-        },
+        border = BorderStroke(
+            animatedBorderStroke,
+            colorScheme.primary,
+        ),
     ) {
         Column(
             Modifier.padding(16.dp),

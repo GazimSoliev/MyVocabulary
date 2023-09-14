@@ -10,6 +10,7 @@ data class WordListState(
     val words: List<IWordID> = emptyList(),
     val chosenWordsCount: Int = 0,
     val choseMode: Boolean = false,
+    val canScroll: Boolean = true
 ) : IState
 
 sealed interface WordListSideEffect : ISideEffect {
